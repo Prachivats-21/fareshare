@@ -5,7 +5,7 @@ import {
   Car, Navigation, Check
 } from 'lucide-react';
 import { TEAM_MEMBERS, CORRIDORS } from '../data/fareshareData';
-import TechText from './animations/TechText';
+import TrueFocus from './animations/TrueFocus';
 import CountUp from './animations/CountUp';
 import SpotlightCard from './animations/SpotlightCard';
 import UserProfileDropdown from './UserProfileDropdown';
@@ -136,15 +136,16 @@ export default function LandingPage({ onLaunchApp }) {
               <span>AI-POWERED CAMPUS TRAVEL OMNIBOX</span>
             </div>
 
-            {/* React Bits TechText in CAPITAL LETTERS */}
-            <div className="space-y-1">
-              <TechText 
-                text="SPLIT CABS. SAVE MONEY." 
-                className="text-4xl sm:text-6xl font-black text-[#1B1E1D] block leading-[1.08]" 
-              />
-              <TechText 
-                text="TRAVEL SAFE ON CAMPUS." 
-                className="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#1A3D34] via-[#267256] to-emerald-600 block leading-[1.08]" 
+            {/* React Bits TrueFocus: Continuous Word Highlighting Animation */}
+            <div className="py-2">
+              <TrueFocus 
+                sentence="SPLIT CABS. SAVE MONEY. TRAVEL SAFE ON CAMPUS." 
+                blurAmount={2.5}
+                borderColor="#1A3D34"
+                glowColor="rgba(26, 61, 52, 0.25)"
+                animationDuration={1.1}
+                pauseBetweenAnimations={0.3}
+                className="text-3xl sm:text-5xl lg:text-[54px] font-black leading-tight max-w-2xl"
               />
             </div>
 
