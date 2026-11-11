@@ -225,11 +225,11 @@ fareshare/
 
 **Team EnderMen** · *coNStruCT 2.0 Product × AI Hackathon*
 
-- **Prachi Vats** ([@Prachivats-21](https://github.com/Prachivats-21)) — Product & Strategy Lead, System Architecture & Safety Protocols
-- **Kaashvi Saini** ([@Kaashviw3spaces](https://github.com/Kaashviw3spaces)) — UX & Community Safety Lead, Girls-Only Safe Circles
-- **Ashwin Anand** ([@ashuwuin](https://github.com/ashuwuin)) — Full-Stack & Matching Architect, Route Matrix Systems
-- **Swapnil Pradhan** — AI & Route Optimization, Multimodal Fare-Split Engine
-- **Akshat Kumar** — Frontend & Micro-Interactions, React Bits Animation Systems
+- **Prachi Vats** ([@Prachivats-21](https://github.com/Prachivats-21))
+- **Kaashvi Saini** ([@Kaashviw3spaces](https://github.com/Kaashviw3spaces))
+- **Ashwin Anand** ([@ashuwuin](https://github.com/ashuwuin))
+- **Swapnil Pradhan**
+- **Akshat Kumar**
 
 ### Technology Stack & Tools
 - **Design System**: Warm Linen (`#FAF8F5`), Forest Olive (`#1A3D34`), 1px micro-borders (`#E7E4DC`)

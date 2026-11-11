@@ -363,8 +363,7 @@ export default function ExploreDashboard({ onBackToStory }) {
                   }`}>
                     {member.initials}
                   </span>
-                  <span>{member.name.split(' ')[0]}</span>
-                  <span className="text-[10px] opacity-75">({member.hostel.split('(')[0].trim()})</span>
+                  <span>{member.name}</span>
                   {isActive && (
                     <ShieldCheck className="w-3.5 h-3.5 text-emerald-300" />
                   )}
@@ -391,7 +390,7 @@ export default function ExploreDashboard({ onBackToStory }) {
             </div>
             <div className="text-xs text-[#6B726F] flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-              <span>Logged in as: <strong>{selectedPersona.name}</strong> ({selectedPersona.hostel})</span>
+              <span>Logged in as: <strong>{selectedPersona.name}</strong></span>
             </div>
           </div>
 
@@ -1034,7 +1033,7 @@ export default function ExploreDashboard({ onBackToStory }) {
               </span>
               <div>
                 <h3 className="font-extrabold text-base text-[#1B1E1D]">Post a Campus Ride Pool</h3>
-                <span className="text-[11px] text-[#6B726F]">Posting as {selectedPersona.name} ({selectedPersona.hostel})</span>
+                <span className="text-[11px] text-[#6B726F]">Posting as {selectedPersona.name}</span>
               </div>
             </div>
 
