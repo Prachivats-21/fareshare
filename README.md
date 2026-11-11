@@ -228,8 +228,8 @@ fareshare/
 - **Prachi Vats** ([@Prachivats-21](https://github.com/Prachivats-21))
 - **Kaashvi Saini** ([@Kaashviw3spaces](https://github.com/Kaashviw3spaces))
 - **Ashwin Anand** ([@ashuwuin](https://github.com/ashuwuin))
-- **Swapnil Pradhan**
-- **Akshat Kumar**
+- **Swapnil Pradhan** ([@suwupnil](https://github.com/suwupnil))
+- **Akshat Kumar** ([@Akshat-xe](https://github.com/Akshat-xe))
 
 ### Technology Stack & Tools
 - **Design System**: Warm Linen (`#FAF8F5`), Forest Olive (`#1A3D34`), 1px micro-borders (`#E7E4DC`)
