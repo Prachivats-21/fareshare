@@ -364,7 +364,7 @@ export default function ExploreDashboard({ onBackToStory }) {
                     {member.initials}
                   </span>
                   <span>{member.name.split(' ')[0]}</span>
-                  <span className="text-[10px] opacity-75">({member.hostel.split(' ')[0]})</span>
+                  <span className="text-[10px] opacity-75">({member.hostel.split('(')[0].trim()})</span>
                   {isActive && (
                     <ShieldCheck className="w-3.5 h-3.5 text-emerald-300" />
                   )}
