@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Preloader from './components/Preloader';
 import LandingPage from './components/LandingPage';
 import ExploreDashboard from './components/ExploreDashboard';
@@ -7,13 +7,36 @@ export default function App() {
   const [showPreloader, setShowPreloader] = useState(true);
   const [currentView, setCurrentView] = useState('story'); // 'story' | 'explore'
 
+  // Disable browser automatic scroll restoration so it never forces previous scroll offset
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  const resetScroll = () => {
+    window.scrollTo(0, 0);
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+      if (document.documentElement) document.documentElement.scrollTop = 0;
+      if (document.body) document.body.scrollTop = 0;
+    });
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      if (document.documentElement) document.documentElement.scrollTop = 0;
+      if (document.body) document.body.scrollTop = 0;
+    }, 50);
+  };
+
   const handleLaunchApp = () => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    resetScroll();
     setCurrentView('explore');
   };
 
   const handleBackToStory = () => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    resetScroll();
     setCurrentView('story');
   };
 

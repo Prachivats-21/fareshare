@@ -80,9 +80,17 @@ function parseBilingualIntent(query) {
 }
 
 export default function ExploreDashboard({ onBackToStory }) {
-  // Always scroll to top when mounting the dashboard
+  // Always force scroll to top when mounting the dashboard
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo(0, 0);
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
+    const t = setTimeout(() => {
+      window.scrollTo(0, 0);
+      if (document.documentElement) document.documentElement.scrollTop = 0;
+      if (document.body) document.body.scrollTop = 0;
+    }, 50);
+    return () => clearTimeout(t);
   }, []);
 
   // Active Logged-in Persona

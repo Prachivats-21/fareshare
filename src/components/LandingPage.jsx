@@ -12,9 +12,17 @@ import SpotlightCard from './animations/SpotlightCard';
 import UserProfileDropdown from './UserProfileDropdown';
 
 export default function LandingPage({ onLaunchApp }) {
-  // Always scroll to top when mounting the landing page
+  // Always force scroll to top when mounting the landing page
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo(0, 0);
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
+    const t = setTimeout(() => {
+      window.scrollTo(0, 0);
+      if (document.documentElement) document.documentElement.scrollTop = 0;
+      if (document.body) document.body.scrollTop = 0;
+    }, 50);
+    return () => clearTimeout(t);
   }, []);
 
   // Destination options for Hero Simulator
