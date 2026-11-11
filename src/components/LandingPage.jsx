@@ -582,7 +582,61 @@ export default function LandingPage({ onLaunchApp }) {
         </div>
       </section>
 
-      {/* 9. Footer with Legal & Feedback Links */}
+      {/* 9. Explore Live App / Prototype Showcase Section */}
+      <section id="explore-section" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <SpotlightCard className="bg-gradient-to-br from-[#1A3D34] via-[#132E27] to-[#0D201B] text-white rounded-3xl p-8 sm:p-14 shadow-2xl relative overflow-hidden border border-emerald-900/40">
+          {/* Subtle ambient lighting */}
+          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 text-center max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-emerald-300 text-xs font-semibold mb-6 backdrop-blur-sm border border-white/15">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>LIVE WORKING PROTOTYPE</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight text-white">
+              Explore the Live Working Prototype
+            </h2>
+
+            <p className="text-emerald-100/85 text-sm sm:text-base mt-4 max-w-2xl mx-auto leading-relaxed">
+              Step into the full FareShare dashboard. Switch student personas, search corridors with the Conversational Omnibox, simulate instant 4-way fare splits, and test the 4-hour ephemeral chat drawer.
+            </p>
+
+            {/* Feature Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mt-8">
+              <span className="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-semibold text-emerald-200 border border-white/10">
+                ⚡ Conversational Omnibox
+              </span>
+              <span className="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-semibold text-emerald-200 border border-white/10">
+                🛡️ Verified @nst-ru.edu.in
+              </span>
+              <span className="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-semibold text-pink-200 border border-pink-400/20">
+                🌸 Girls-Only Safe Filter
+              </span>
+              <span className="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-semibold text-emerald-200 border border-white/10">
+                ⏳ 4h Ephemeral Chat
+              </span>
+              <span className="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-semibold text-emerald-200 border border-white/10">
+                💳 Instant UPI Split
+              </span>
+            </div>
+
+            {/* Big Launch Button */}
+            <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button
+                onClick={onLaunchApp}
+                className="group px-8 py-4 rounded-full bg-white text-[#1A3D34] hover:bg-emerald-50 font-black text-sm sm:text-base shadow-xl hover:shadow-2xl transition-all duration-200 flex items-center gap-2.5 hover:scale-[1.03] active:scale-[0.98]"
+              >
+                <span>Launch Explore Dashboard</span>
+                <ArrowRight className="w-5 h-5 text-[#1A3D34] group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </div>
+        </SpotlightCard>
+      </section>
+
+      {/* 10. Footer with Legal & Feedback Links */}
       <footer className="mt-auto bg-[#FAF8F5] border-t border-[#E7E4DC] py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-[#6B726F]">
           <div className="flex items-center gap-3">
