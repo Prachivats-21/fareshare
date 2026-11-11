@@ -9,6 +9,7 @@ import LetterHighlightStream from './animations/LetterHighlightStream';
 import RotatingText from './animations/RotatingText';
 import CountUp from './animations/CountUp';
 import SpotlightCard from './animations/SpotlightCard';
+import UserProfileDropdown from './UserProfileDropdown';
 
 export default function LandingPage({ onLaunchApp }) {
   // Always force scroll to top when mounting the landing page
@@ -122,6 +123,7 @@ export default function LandingPage({ onLaunchApp }) {
           </nav>
 
           <div className="flex items-center gap-3">
+            <UserProfileDropdown />
             <button
               onClick={onLaunchApp}
               className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1A3D34] hover:bg-[#132E27] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"

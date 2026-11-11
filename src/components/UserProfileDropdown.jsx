@@ -360,7 +360,7 @@ export default function UserProfileDropdown() {
 
             <div className="space-y-3 text-xs">
               <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200">
-                <div className="font-bold text-rose-900">Campus Campus Security Main Desk</div>
+                <div className="font-bold text-rose-900">Campus Security Main Desk</div>
                 <div className="text-rose-700 font-mono mt-0.5">+91 11 2670 9999 (24/7 Gate Patrol)</div>
               </div>
               <div className="p-3.5 rounded-2xl bg-pink-50 border border-pink-200">
