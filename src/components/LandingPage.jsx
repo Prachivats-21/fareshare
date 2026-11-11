@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   Sparkles, ShieldCheck, ArrowRight, Users, Clock, Compass, 
   CheckCircle2, X, MessageSquare, Wallet, ExternalLink, MapPin,
-  Car, Navigation, Check
+  Car, Navigation, Check, ArrowUpRight
 } from 'lucide-react';
 import { TEAM_MEMBERS, CORRIDORS } from '../data/fareshareData';
 import LetterHighlightStream from './animations/LetterHighlightStream';
@@ -513,8 +513,30 @@ export default function LandingPage({ onLaunchApp }) {
                     Campus ⇄ IGI Airport T3
                     <span className="block text-xs text-[#6B726F] font-normal">44 KM • ~65 mins</span>
                   </td>
-                  <td className="py-4 px-6 text-[#525955]">₹1,400</td>
-                  <td className="py-4 px-6 text-[#525955]">₹1,350</td>
+                  <td className="py-4 px-6">
+                    <a
+                      href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=IGI%20Airport%20Terminal%203"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#525955] hover:text-[#1A3D34] font-medium inline-flex items-center gap-1 group"
+                      title="Open Uber to check solo cab fare"
+                    >
+                      <span>₹1,400</span>
+                      <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
+                    </a>
+                  </td>
+                  <td className="py-4 px-6">
+                    <a
+                      href="https://book.olacabs.com/?drop_name=IGI%20Airport%20Terminal%203"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#525955] hover:text-[#1A3D34] font-medium inline-flex items-center gap-1 group"
+                      title="Open Ola to check solo cab fare"
+                    >
+                      <span>₹1,350</span>
+                      <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
+                    </a>
+                  </td>
                   <td className="py-4 px-6 text-[#525955]">
                     ₹60
                     <span className="block text-[11px] text-amber-700">80 mins • 2 line switches</span>
@@ -530,8 +552,30 @@ export default function LandingPage({ onLaunchApp }) {
                     Campus ⇄ NDLS Railway
                     <span className="block text-xs text-[#6B726F] font-normal">31 KM • ~50 mins</span>
                   </td>
-                  <td className="py-4 px-6 text-[#525955]">₹900</td>
-                  <td className="py-4 px-6 text-[#525955]">₹880</td>
+                  <td className="py-4 px-6">
+                    <a
+                      href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=New%20Delhi%20Railway%20Station"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#525955] hover:text-[#1A3D34] font-medium inline-flex items-center gap-1 group"
+                      title="Open Uber to check solo cab fare"
+                    >
+                      <span>₹900</span>
+                      <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
+                    </a>
+                  </td>
+                  <td className="py-4 px-6">
+                    <a
+                      href="https://book.olacabs.com/?drop_name=New%20Delhi%20Railway%20Station"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#525955] hover:text-[#1A3D34] font-medium inline-flex items-center gap-1 group"
+                      title="Open Ola to check solo cab fare"
+                    >
+                      <span>₹880</span>
+                      <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
+                    </a>
+                  </td>
                   <td className="py-4 px-6 text-[#525955]">
                     ₹50
                     <span className="block text-[11px] text-amber-700">65 mins • Yellow line switch</span>
@@ -547,8 +591,30 @@ export default function LandingPage({ onLaunchApp }) {
                     Campus ⇄ Cyber City / Mall
                     <span className="block text-xs text-[#6B726F] font-normal">14 KM • ~25 mins</span>
                   </td>
-                  <td className="py-4 px-6 text-[#525955]">₹450</td>
-                  <td className="py-4 px-6 text-[#525955]">₹430</td>
+                  <td className="py-4 px-6">
+                    <a
+                      href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=Cyber%20City%20Gurugram"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#525955] hover:text-[#1A3D34] font-medium inline-flex items-center gap-1 group"
+                      title="Open Uber to check solo cab fare"
+                    >
+                      <span>₹450</span>
+                      <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
+                    </a>
+                  </td>
+                  <td className="py-4 px-6">
+                    <a
+                      href="https://book.olacabs.com/?drop_name=Cyber%20City%20Gurugram"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#525955] hover:text-[#1A3D34] font-medium inline-flex items-center gap-1 group"
+                      title="Open Ola to check solo cab fare"
+                    >
+                      <span>₹430</span>
+                      <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
+                    </a>
+                  </td>
                   <td className="py-4 px-6 text-[#525955]">
                     ₹30
                     <span className="block text-[11px] text-amber-700">40 mins • Rapid connector</span>

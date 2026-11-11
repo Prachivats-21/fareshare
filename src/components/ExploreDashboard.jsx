@@ -3,11 +3,18 @@ import {
   Sparkles, ShieldCheck, ArrowLeft, Users, Clock, Search, 
   MapPin, Luggage, Star, CheckCircle, Send, X, ArrowUpRight,
   AlertCircle, MessageCircle, Wallet, Info, Check, Filter,
-  Mic, MicOff, Languages, Volume2
+  Mic, MicOff, Languages, Volume2, Car, ExternalLink
 } from 'lucide-react';
 import { TEAM_MEMBERS, CORRIDORS, INITIAL_POOLS } from '../data/fareshareData';
 import { playPop, playSuccess, playToggle } from '../utils/sound';
 import confetti from 'canvas-confetti';
+
+// Universal Cab Deep Links (Direct Native App on Mobile / Web Booking on Desktop)
+const getUberDeepLink = (dest) =>
+  `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=${encodeURIComponent(dest || 'IGI Airport')}`;
+
+const getOlaDeepLink = (dest) =>
+  `https://book.olacabs.com/?drop_name=${encodeURIComponent(dest || 'IGI Airport')}`;
 
 // Smart Bilingual Indic Intent Parser (English, Hindi, Hinglish)
 function parseBilingualIntent(query) {
@@ -684,17 +691,33 @@ export default function ExploreDashboard({ onBackToStory }) {
 
                     {/* Multi-Modal Comparison Strip (Uber / Ola / Metro) */}
                     <div className="mt-4 pt-3 border-t border-[#F0ECE1] grid grid-cols-3 gap-2 text-center text-[10px] font-semibold text-[#6B726F]">
-                      <div className="bg-[#FAF8F5] p-1.5 rounded-xl border border-[#E7E4DC]">
-                        <span>Uber Go</span>
-                        <div className="font-bold text-[#1B1E1D]">₹{pool.uberGo}</div>
-                      </div>
-                      <div className="bg-[#FAF8F5] p-1.5 rounded-xl border border-[#E7E4DC]">
-                        <span>Ola Mini</span>
-                        <div className="font-bold text-[#1B1E1D]">₹{pool.olaMini}</div>
-                      </div>
-                      <div className="bg-[#FAF8F5] p-1.5 rounded-xl border border-[#E7E4DC]">
+                      <a
+                        href={getUberDeepLink(pool.destination)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-[#FAF8F5] hover:bg-white p-1.5 rounded-xl border border-[#E7E4DC] hover:border-[#1A3D34] transition-all group block shadow-2xs hover:shadow-sm"
+                        title={`Check solo cab on Uber to ${pool.destination}`}
+                      >
+                        <span className="flex items-center justify-center gap-0.5 group-hover:text-[#1A3D34]">
+                          Uber Go <ArrowUpRight className="w-2.5 h-2.5 text-zinc-400 group-hover:text-[#1A3D34]" />
+                        </span>
+                        <div className="font-bold text-[#1B1E1D] mt-0.5">₹{pool.uberGo}</div>
+                      </a>
+                      <a
+                        href={getOlaDeepLink(pool.destination)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-[#FAF8F5] hover:bg-white p-1.5 rounded-xl border border-[#E7E4DC] hover:border-[#1A3D34] transition-all group block shadow-2xs hover:shadow-sm"
+                        title={`Check solo cab on Ola to ${pool.destination}`}
+                      >
+                        <span className="flex items-center justify-center gap-0.5 group-hover:text-[#1A3D34]">
+                          Ola Mini <ArrowUpRight className="w-2.5 h-2.5 text-zinc-400 group-hover:text-[#1A3D34]" />
+                        </span>
+                        <div className="font-bold text-[#1B1E1D] mt-0.5">₹{pool.olaMini}</div>
+                      </a>
+                      <div className="bg-[#FAF8F5] p-1.5 rounded-xl border border-[#E7E4DC] flex flex-col justify-center">
                         <span>DMRC Metro</span>
-                        <div className="font-bold text-[#1B1E1D]">₹{pool.metroFare}</div>
+                        <div className="font-bold text-[#1B1E1D] mt-0.5">₹{pool.metroFare}</div>
                       </div>
                     </div>
                   </div>
@@ -860,14 +883,30 @@ export default function ExploreDashboard({ onBackToStory }) {
               </div>
 
               <div className="space-y-3 my-5 text-xs text-zinc-300">
-                <div className="flex justify-between">
-                  <span>Solo Uber Go Cab</span>
+                <a
+                  href={getUberDeepLink(simCorridor.destName)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex justify-between items-center text-zinc-300 hover:text-white transition-colors group cursor-pointer"
+                  title="Open Uber to compare solo cab fare"
+                >
+                  <span className="flex items-center gap-1 group-hover:underline">
+                    Solo Uber Go Cab <ArrowUpRight className="w-3 h-3 text-emerald-400 opacity-60 group-hover:opacity-100" />
+                  </span>
                   <span className="font-mono line-through text-zinc-400">₹{simCorridor.uberEstimate}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Solo Ola Mini Cab</span>
+                </a>
+                <a
+                  href={getOlaDeepLink(simCorridor.destName)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex justify-between items-center text-zinc-300 hover:text-white transition-colors group cursor-pointer"
+                  title="Open Ola to compare solo cab fare"
+                >
+                  <span className="flex items-center gap-1 group-hover:underline">
+                    Solo Ola Mini Cab <ArrowUpRight className="w-3 h-3 text-emerald-400 opacity-60 group-hover:opacity-100" />
+                  </span>
                   <span className="font-mono line-through text-zinc-400">₹{simCorridor.olaEstimate}</span>
-                </div>
+                </a>
                 <div className="flex justify-between">
                   <span>Delhi Metro (DMRC)</span>
                   <span className="font-mono text-amber-300">₹{simCorridor.metroFare} (80 mins)</span>
@@ -964,6 +1003,36 @@ export default function ExploreDashboard({ onBackToStory }) {
                   {chatLifecycleStage === 'transit' && <span>Ride in progress via Dwarka Expressway</span>}
                   {chatLifecycleStage === 'grace' && <span className="font-bold text-amber-800">Grace Period: Settle ₹{activeChatPool.farePerPerson} via UPI</span>}
                   {chatLifecycleStage === 'expired' && <span className="text-zinc-400">Chat sealed and auto-purged for student privacy</span>}
+                </div>
+              </div>
+
+              {/* Instant Cab Booking Universal Deep Links */}
+              <div className="px-4 py-2 bg-white border-b border-[#E7E4DC] flex items-center justify-between text-xs">
+                <span className="text-[11px] font-bold text-[#525955] flex items-center gap-1.5">
+                  <Car className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>Book Cab for Group:</span>
+                </span>
+                <div className="flex items-center gap-1.5">
+                  <a
+                    href={getUberDeepLink(activeChatPool.destination)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2.5 py-1 rounded-lg bg-black hover:bg-zinc-800 text-white font-bold text-[10px] flex items-center gap-1 transition-all"
+                    title={`Open Uber with destination pre-filled: ${activeChatPool.destination}`}
+                  >
+                    <span>Uber App</span>
+                    <ArrowUpRight className="w-2.5 h-2.5" />
+                  </a>
+                  <a
+                    href={getOlaDeepLink(activeChatPool.destination)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2.5 py-1 rounded-lg bg-amber-400 hover:bg-amber-500 text-black font-bold text-[10px] flex items-center gap-1 transition-all"
+                    title={`Open Ola with destination pre-filled: ${activeChatPool.destination}`}
+                  >
+                    <span>Ola App</span>
+                    <ArrowUpRight className="w-2.5 h-2.5" />
+                  </a>
                 </div>
               </div>
             </div>
