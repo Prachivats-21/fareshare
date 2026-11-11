@@ -516,11 +516,11 @@ export default function LandingPage({ onLaunchApp }) {
                   </td>
                   <td className="py-4 px-6">
                     <a
-                      href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=IGI%20Airport%20Terminal%203"
+                      href="https://www.uber.com/global/en/price-estimate/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[#525955] hover:text-[#1A3D34] font-medium inline-flex items-center gap-1 group"
-                      title="Open Uber to check solo cab fare"
+                      title="Open Uber to check solo cab fare estimate without login"
                     >
                       <span>₹1,400</span>
                       <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
@@ -538,8 +538,17 @@ export default function LandingPage({ onLaunchApp }) {
                       <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
                     </a>
                   </td>
-                  <td className="py-4 px-6 text-[#525955]">
-                    ₹60
+                  <td className="py-4 px-6">
+                    <a
+                      href="https://delhimetrorail.com/fare-calculator"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#525955] hover:text-[#1A3D34] font-medium inline-flex items-center gap-1 group"
+                      title="Open Delhi Metro DMRC fare calculator"
+                    >
+                      <span>₹60</span>
+                      <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
+                    </a>
                     <span className="block text-[11px] text-amber-700">80 mins • 2 line switches</span>
                   </td>
                   <td className="py-4 px-6 bg-[#EAF2EE]/60 font-black text-emerald-800 text-base">
@@ -555,11 +564,11 @@ export default function LandingPage({ onLaunchApp }) {
                   </td>
                   <td className="py-4 px-6">
                     <a
-                      href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=New%20Delhi%20Railway%20Station"
+                      href="https://www.uber.com/global/en/price-estimate/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[#525955] hover:text-[#1A3D34] font-medium inline-flex items-center gap-1 group"
-                      title="Open Uber to check solo cab fare"
+                      title="Open Uber to check solo cab fare estimate without login"
                     >
                       <span>₹900</span>
                       <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
@@ -577,8 +586,17 @@ export default function LandingPage({ onLaunchApp }) {
                       <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
                     </a>
                   </td>
-                  <td className="py-4 px-6 text-[#525955]">
-                    ₹50
+                  <td className="py-4 px-6">
+                    <a
+                      href="https://delhimetrorail.com/fare-calculator"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#525955] hover:text-[#1A3D34] font-medium inline-flex items-center gap-1 group"
+                      title="Open Delhi Metro DMRC fare calculator"
+                    >
+                      <span>₹50</span>
+                      <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
+                    </a>
                     <span className="block text-[11px] text-amber-700">65 mins • Yellow line switch</span>
                   </td>
                   <td className="py-4 px-6 bg-[#EAF2EE]/60 font-black text-emerald-800 text-base">
@@ -594,11 +612,11 @@ export default function LandingPage({ onLaunchApp }) {
                   </td>
                   <td className="py-4 px-6">
                     <a
-                      href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=Cyber%20City%20Gurugram"
+                      href="https://www.uber.com/global/en/price-estimate/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[#525955] hover:text-[#1A3D34] font-medium inline-flex items-center gap-1 group"
-                      title="Open Uber to check solo cab fare"
+                      title="Open Uber to check solo cab fare estimate without login"
                     >
                       <span>₹450</span>
                       <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
@@ -616,8 +634,17 @@ export default function LandingPage({ onLaunchApp }) {
                       <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
                     </a>
                   </td>
-                  <td className="py-4 px-6 text-[#525955]">
-                    ₹30
+                  <td className="py-4 px-6">
+                    <a
+                      href="https://delhimetrorail.com/fare-calculator"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#525955] hover:text-[#1A3D34] font-medium inline-flex items-center gap-1 group"
+                      title="Open Delhi Metro DMRC fare calculator"
+                    >
+                      <span>₹30</span>
+                      <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#1A3D34]" />
+                    </a>
                     <span className="block text-[11px] text-amber-700">40 mins • Rapid connector</span>
                   </td>
                   <td className="py-4 px-6 bg-[#EAF2EE]/60 font-black text-emerald-800 text-base">

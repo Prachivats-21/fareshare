@@ -10,12 +10,15 @@ import { playPop, playSuccess, playToggle } from '../utils/sound';
 import confetti from 'canvas-confetti';
 import FareShareLogo from './FareShareLogo';
 
-// Universal Cab Deep Links (Direct Native App on Mobile / Web Booking on Desktop)
+// Public Cab & Transit Price Estimators & Booking Links (Instant web view, no sign-in required)
 const getUberDeepLink = (dest) =>
-  `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=${encodeURIComponent(dest || 'IGI Airport')}`;
+  `https://www.uber.com/global/en/price-estimate/`;
 
 const getOlaDeepLink = (dest) =>
   `https://book.olacabs.com/?drop_name=${encodeURIComponent(dest || 'IGI Airport')}`;
+
+const getDmrcDeepLink = () =>
+  `https://delhimetrorail.com/fare-calculator`;
 
 // Smart Bilingual Indic Intent Parser (English, Hindi, Hinglish)
 function parseBilingualIntent(query) {
@@ -699,8 +702,9 @@ export default function ExploreDashboard({ onBackToStory }) {
                         href={getUberDeepLink(pool.destination)}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="bg-[#FAF8F5] hover:bg-white p-1.5 rounded-xl border border-[#E7E4DC] hover:border-[#1A3D34] transition-all group block shadow-2xs hover:shadow-sm"
-                        title={`Check solo cab on Uber to ${pool.destination}`}
+                        title={`Check solo cab on Uber to ${pool.destination} (Price Estimator)`}
                       >
                         <span className="flex items-center justify-center gap-0.5 group-hover:text-[#1A3D34]">
                           Uber Go <ArrowUpRight className="w-2.5 h-2.5 text-zinc-400 group-hover:text-[#1A3D34]" />
@@ -711,6 +715,7 @@ export default function ExploreDashboard({ onBackToStory }) {
                         href={getOlaDeepLink(pool.destination)}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="bg-[#FAF8F5] hover:bg-white p-1.5 rounded-xl border border-[#E7E4DC] hover:border-[#1A3D34] transition-all group block shadow-2xs hover:shadow-sm"
                         title={`Check solo cab on Ola to ${pool.destination}`}
                       >
@@ -719,10 +724,19 @@ export default function ExploreDashboard({ onBackToStory }) {
                         </span>
                         <div className="font-bold text-[#1B1E1D] mt-0.5">₹{pool.olaMini}</div>
                       </a>
-                      <div className="bg-[#FAF8F5] p-1.5 rounded-xl border border-[#E7E4DC] flex flex-col justify-center">
-                        <span>DMRC Metro</span>
+                      <a
+                        href={getDmrcDeepLink()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="bg-[#FAF8F5] hover:bg-white p-1.5 rounded-xl border border-[#E7E4DC] hover:border-[#1A3D34] transition-all group block shadow-2xs hover:shadow-sm"
+                        title="Check official metro routes & fares on Delhi Metro (DMRC)"
+                      >
+                        <span className="flex items-center justify-center gap-0.5 group-hover:text-[#1A3D34]">
+                          DMRC Metro <ArrowUpRight className="w-2.5 h-2.5 text-zinc-400 group-hover:text-[#1A3D34]" />
+                        </span>
                         <div className="font-bold text-[#1B1E1D] mt-0.5">₹{pool.metroFare}</div>
-                      </div>
+                      </a>
                     </div>
                   </div>
 
@@ -911,10 +925,18 @@ export default function ExploreDashboard({ onBackToStory }) {
                   </span>
                   <span className="font-mono line-through text-zinc-400">₹{simCorridor.olaEstimate}</span>
                 </a>
-                <div className="flex justify-between">
-                  <span>Delhi Metro (DMRC)</span>
+                <a
+                  href={getDmrcDeepLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex justify-between items-center text-zinc-300 hover:text-white transition-colors group cursor-pointer"
+                  title="Open Delhi Metro DMRC fare calculator"
+                >
+                  <span className="flex items-center gap-1 group-hover:underline">
+                    Delhi Metro (DMRC) <ArrowUpRight className="w-3 h-3 text-emerald-400 opacity-60 group-hover:opacity-100" />
+                  </span>
                   <span className="font-mono text-amber-300">₹{simCorridor.metroFare} (80 mins)</span>
-                </div>
+                </a>
                 <div className="pt-2 border-t border-emerald-900/40 flex justify-between font-bold text-emerald-300">
                   <span>FareShare 4-Way Pool</span>
                   <span className="text-white text-base">₹{Math.round(simCorridor.uberEstimate / simRiders)} / student</span>
@@ -1022,9 +1044,9 @@ export default function ExploreDashboard({ onBackToStory }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-2.5 py-1 rounded-lg bg-black hover:bg-zinc-800 text-white font-bold text-[10px] flex items-center gap-1 transition-all"
-                    title={`Open Uber with destination pre-filled: ${activeChatPool.destination}`}
+                    title={`Open Uber Price Estimator & Booking: ${activeChatPool.destination}`}
                   >
-                    <span>Uber App</span>
+                    <span>Uber</span>
                     <ArrowUpRight className="w-2.5 h-2.5" />
                   </a>
                   <a
@@ -1032,9 +1054,19 @@ export default function ExploreDashboard({ onBackToStory }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-2.5 py-1 rounded-lg bg-amber-400 hover:bg-amber-500 text-black font-bold text-[10px] flex items-center gap-1 transition-all"
-                    title={`Open Ola with destination pre-filled: ${activeChatPool.destination}`}
+                    title={`Open Ola Booking: ${activeChatPool.destination}`}
                   >
-                    <span>Ola App</span>
+                    <span>Ola</span>
+                    <ArrowUpRight className="w-2.5 h-2.5" />
+                  </a>
+                  <a
+                    href={getDmrcDeepLink()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2.5 py-1 rounded-lg bg-[#004A80] hover:bg-[#003366] text-white font-bold text-[10px] flex items-center gap-1 transition-all"
+                    title="Open Delhi Metro (DMRC) Fare Calculator"
+                  >
+                    <span>DMRC</span>
                     <ArrowUpRight className="w-2.5 h-2.5" />
                   </a>
                 </div>
