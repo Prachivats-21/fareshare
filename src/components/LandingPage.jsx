@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { TEAM_MEMBERS, CORRIDORS } from '../data/fareshareData';
 import LetterHighlightStream from './animations/LetterHighlightStream';
+import RotatingText from './animations/RotatingText';
 import CountUp from './animations/CountUp';
 import SpotlightCard from './animations/SpotlightCard';
 import UserProfileDropdown from './UserProfileDropdown';
@@ -136,21 +137,33 @@ export default function LandingPage({ onLaunchApp }) {
               <span>AI-POWERED CAMPUS TRAVEL OMNIBOX</span>
             </div>
 
-            {/* Continuous Letter-by-Letter Highlighting (Video / Lyric Style) */}
+            {/* Continuous Letter-by-Letter Highlighting (Video / Lyric Style) - Just the 2 lines */}
             <div className="py-2">
               <LetterHighlightStream
                 lines={[
-                  "SPLIT CABS. SAVE MONEY.",
-                  "TRAVEL SAFE ON CAMPUS."
+                  "SPLIT CABS.",
+                  "SAVE MONEY."
                 ]}
-                charSpeedMs={45}
+                charSpeedMs={50}
                 holdAtEndMs={1400}
-                className="text-4xl sm:text-6xl lg:text-[58px]"
+                className="text-4xl sm:text-6xl lg:text-[64px]"
               />
             </div>
 
             <p className="text-base sm:text-lg text-[#525955] leading-relaxed max-w-xl">
-              Stop overpaying for solo cabs or spamming chaotic WhatsApp groups. Tell FareShare where you're heading and our AI matches you with verified <span className="font-semibold text-emerald-800">@nst-ru.edu.in</span> campus peers in seconds.
+              Stop overpaying for solo cabs or spamming chaotic WhatsApp groups. Tell FareShare where you're heading to{' '}
+              <span className="font-extrabold text-[#1A3D34] underline decoration-emerald-400 decoration-2 underline-offset-4 inline-block">
+                <RotatingText 
+                  texts={[
+                    "IGI Airport Terminal 3",
+                    "NDLS Railway Station",
+                    "Cyber City & Sector 18",
+                    "Anand Vihar ISBT"
+                  ]} 
+                  interval={2400}
+                />
+              </span>{' '}
+              and our AI matches you with verified <span className="font-semibold text-emerald-800">@nst-ru.edu.in</span> campus peers in seconds.
             </p>
 
             {/* Key Value Badges */}
