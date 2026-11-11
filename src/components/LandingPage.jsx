@@ -88,7 +88,7 @@ export default function LandingPage({ onLaunchApp }) {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#1B1E1D] flex flex-col font-sans">
+    <div className="min-h-screen bg-dot-grid text-[#1B1E1D] flex flex-col font-sans">
       {/* 1. Global Announcement Banner */}
       <div className="bg-gradient-to-r from-[#1A3D34] via-[#122A23] to-[#1A3D34] text-white py-2 px-4 text-xs font-medium text-center flex items-center justify-center gap-2">
         <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -151,7 +151,7 @@ export default function LandingPage({ onLaunchApp }) {
             <div className="py-2">
               <LetterHighlightStream
                 lines={[
-                  "SPLIT CABS.",
+                  "SPLIT FARES.",
                   "SAVE MONEY."
                 ]}
                 charSpeedMs={50}
@@ -436,7 +436,7 @@ export default function LandingPage({ onLaunchApp }) {
       </section>
 
       {/* 6. How It Works (3-Step Animated Process) */}
-      <section id="how-it-works" className="py-16 bg-[#F4F1EA] border-y border-[#E7E4DC]">
+      <section id="how-it-works" className="py-16 bg-dot-grid border-y border-[#E7E4DC]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <span className="text-xs font-bold uppercase tracking-widest text-[#1A3D34] bg-white px-3 py-1 rounded-full border border-[#E7E4DC]">
@@ -565,7 +565,7 @@ export default function LandingPage({ onLaunchApp }) {
       </section>
 
       {/* 8. Team EnderMen Showcase (ONLY NAMES + COLORFUL AVATAR ICONS) */}
-      <section id="team" className="py-16 bg-[#F4F1EA] border-y border-[#E7E4DC]">
+      <section id="team" className="py-16 bg-dot-grid border-y border-[#E7E4DC]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-bold uppercase tracking-widest text-[#1A3D34] bg-white px-3 py-1 rounded-full border border-[#E7E4DC]">

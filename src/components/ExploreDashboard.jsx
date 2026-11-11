@@ -318,10 +318,10 @@ export default function ExploreDashboard({ onBackToStory }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#1B1E1D] flex flex-col font-sans">
+    <div className="min-h-screen bg-dot-grid text-[#1B1E1D] flex flex-col font-sans">
       
       {/* 1. Dashboard Sub-Header */}
-      <div className="bg-[#FAF8F5] border-b border-[#E7E4DC] sticky top-0 z-30">
+      <div className="bg-[#FAF8F5]/90 backdrop-blur-md border-b border-[#E7E4DC] sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button

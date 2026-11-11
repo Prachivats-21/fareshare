@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function LetterHighlightStream({
   lines = [
-    "SPLIT CABS. SAVE MONEY.",
+    "SPLIT FARES. SAVE MONEY.",
     "TRAVEL SAFE ON CAMPUS."
   ],
   charSpeedMs = 50,

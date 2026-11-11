@@ -14,8 +14,18 @@
 body {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   background-color: var(--color-bg-canvas);
+  background-image: radial-gradient(circle, rgba(27, 30, 29, 0.16) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+  background-attachment: fixed;
   color: #1B1E1D;
   overflow-x: hidden;
+}
+
+/* Subtle dot-grid pattern matching design spec */
+.bg-dot-grid {
+  background-color: #FAF8F5;
+  background-image: radial-gradient(circle, rgba(27, 30, 29, 0.16) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
 }
 
 /* Custom subtle scrollbar */

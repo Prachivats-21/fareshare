@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 export default function TrueFocus({
-  sentence = 'SPLIT CABS. SAVE MONEY. TRAVEL SAFE ON CAMPUS.',
+  sentence = 'SPLIT FARES. SAVE MONEY. TRAVEL SAFE ON CAMPUS.',
   manualMode = false,
   blurAmount = 3,
   borderColor = '#267256',
