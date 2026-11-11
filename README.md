@@ -1,18 +1,18 @@
 # FareShare 🚖
-> **Campus Ride-Pooling & Fair Distance-Split Platform for NST-RU Students**  
+> **Campus Ride-Pooling & Fair Distance-Split Platform for University & College Students**  
 > *Built by **Team EnderMen** for the **coNStruCT 2.0 Product × AI Hackathon***
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-1A3D34?style=for-the-badge&logo=github)](https://prachivats-21.github.io/fareshare/)
-[![NST-RU Verified](https://img.shields.io/badge/@nst--ru.edu.in-Verified_Only-267256?style=for-the-badge)](https://prachivats-21.github.io/fareshare/)
+[![College Verified](https://img.shields.io/badge/.edu_Verified-Campus_Only-267256?style=for-the-badge)](https://prachivats-21.github.io/fareshare/)
 [![Team EnderMen](https://img.shields.io/badge/Team-EnderMen-1B1E1D?style=for-the-badge)](https://prachivats-21.github.io/fareshare/)
 
 ---
 
 ## 🌟 Overview
 
-University students frequently overpay for solo cabs to transit hubs like **IGI Airport Terminal 3** (₹1,400), **NDLS Railway Station** (₹900), and **Cyber City** (₹450), or spend hours spamming chaotic WhatsApp groups trying to find travel partners.
+College and university students frequently overpay for solo cabs to transit hubs like **IGI Airport Terminal 3** (₹1,400), **NDLS Railway Station** (₹900), and **Cyber City** (₹450), or spend hours spamming chaotic WhatsApp groups trying to find travel partners.
 
-**FareShare** solves this by intelligently matching verified `@nst-ru.edu.in` peers traveling on identical departure corridors. By splitting rides 4 ways, students save up to **75%** on cab fares—matching the affordability of the Delhi Metro with the door-to-door comfort of an AC cab.
+**FareShare** solves this for college students everywhere by intelligently matching verified college peers traveling on identical departure corridors. By splitting rides 4 ways, students save up to **75%** on cab fares—matching the affordability of the Delhi Metro with the door-to-door comfort of an AC cab.
 
 ---
 

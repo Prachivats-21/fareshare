@@ -54,7 +54,7 @@ export default function Preloader({ onComplete }) {
       <div className="flex items-center justify-between text-xs tracking-wider uppercase text-zinc-400 font-medium">
         <div className="flex items-center gap-3">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-          <span className="text-white font-bold tracking-widest">NST-RU CAMPUS EXCLUSIVE</span>
+          <span className="text-white font-bold tracking-widest">CAMPUS RIDE POOLING • ALL COLLEGES</span>
         </div>
         <div className="text-zinc-500 hover:text-white transition-colors cursor-pointer text-[11px]">
           [ TAP ANYWHERE TO SKIP ]

@@ -80,7 +80,7 @@ export default function LandingPage({ onLaunchApp }) {
       {/* 1. Global Announcement Banner */}
       <div className="bg-gradient-to-r from-[#1A3D34] via-[#122A23] to-[#1A3D34] text-white py-2 px-4 text-xs font-medium text-center flex items-center justify-center gap-2">
         <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span className="font-semibold text-emerald-300">NST-RU Campus Exclusive</span>
+        <span className="font-semibold text-emerald-300">For College & University Students</span>
         <span className="hidden sm:inline">• Hackathon Edition built by Team EnderMen for coNStruCT 2.0</span>
         <span className="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30 text-[10px] uppercase font-bold ml-1">
           Live Prototype
@@ -97,7 +97,7 @@ export default function LandingPage({ onLaunchApp }) {
             <div>
               <span className="font-extrabold text-lg tracking-tight text-[#1B1E1D]">FareShare</span>
               <span className="text-[10px] text-emerald-700 bg-emerald-50 font-bold px-1.5 py-0.5 rounded ml-2 border border-emerald-200">
-                NST-RU
+                .edu Verified
               </span>
             </div>
           </div>

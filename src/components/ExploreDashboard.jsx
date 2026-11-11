@@ -316,7 +316,7 @@ export default function ExploreDashboard({ onBackToStory }) {
             <div className="flex items-center gap-2">
               <span className="font-extrabold text-lg tracking-tight text-[#1B1E1D]">FareShare</span>
               <span className="text-[10px] font-bold text-emerald-800 bg-[#EAF2EE] border border-[#D0E2D8] px-2 py-0.5 rounded-full">
-                NST-RU CAMPUS EXCLUSIVE
+                CAMPUS RIDE POOLING • ALL COLLEGES
               </span>
             </div>
           </div>
@@ -386,7 +386,7 @@ export default function ExploreDashboard({ onBackToStory }) {
                 TEAM ENDERMEN • LIVE RIDE POOLING
               </span>
               <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1B1E1D] mt-2 tracking-tight">
-                Active NST-RU Departure Pools
+                Active Campus Departure Pools
               </h1>
             </div>
             <div className="text-xs text-[#6B726F] flex items-center gap-1.5">
