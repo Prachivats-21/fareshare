@@ -5,7 +5,7 @@ import {
   Car, Navigation, Check
 } from 'lucide-react';
 import { TEAM_MEMBERS, CORRIDORS } from '../data/fareshareData';
-import TrueFocus from './animations/TrueFocus';
+import LetterHighlightStream from './animations/LetterHighlightStream';
 import CountUp from './animations/CountUp';
 import SpotlightCard from './animations/SpotlightCard';
 import UserProfileDropdown from './UserProfileDropdown';
@@ -101,17 +101,9 @@ export default function LandingPage({ onLaunchApp }) {
             </div>
           </div>
 
-          <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-[#525955]">
-            <button
-              onClick={onLaunchApp}
-              className="hover:text-[#1A3D34] transition-colors flex items-center gap-1.5 font-bold text-emerald-800 bg-[#EAF2EE] px-3 py-1 rounded-full border border-[#D0E2D8]"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Explore Rides (5)</span>
-            </button>
+          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-[#525955]">
             <a href="#problem" className="hover:text-[#1A3D34] transition-colors">The Problem</a>
             <a href="#how-it-works" className="hover:text-[#1A3D34] transition-colors">How It Works</a>
-            <a href="#explore-preview" className="hover:text-[#1A3D34] transition-colors">Active Pools</a>
             <a href="#multi-modal" className="hover:text-[#1A3D34] transition-colors">Transit Matrix</a>
             <a href="#team" className="hover:text-[#1A3D34] transition-colors">Team</a>
           </nav>
@@ -144,16 +136,16 @@ export default function LandingPage({ onLaunchApp }) {
               <span>AI-POWERED CAMPUS TRAVEL OMNIBOX</span>
             </div>
 
-            {/* React Bits TrueFocus: Continuous Word Highlighting Animation */}
+            {/* Continuous Letter-by-Letter Highlighting (Video / Lyric Style) */}
             <div className="py-2">
-              <TrueFocus 
-                sentence="SPLIT CABS. SAVE MONEY. TRAVEL SAFE ON CAMPUS." 
-                blurAmount={2.5}
-                borderColor="#1A3D34"
-                glowColor="rgba(26, 61, 52, 0.25)"
-                animationDuration={1.1}
-                pauseBetweenAnimations={0.3}
-                className="text-3xl sm:text-5xl lg:text-[54px] font-black leading-tight max-w-2xl"
+              <LetterHighlightStream
+                lines={[
+                  "SPLIT CABS. SAVE MONEY.",
+                  "TRAVEL SAFE ON CAMPUS."
+                ]}
+                charSpeedMs={45}
+                holdAtEndMs={1400}
+                className="text-4xl sm:text-6xl lg:text-[58px]"
               />
             </div>
 
@@ -460,181 +452,7 @@ export default function LandingPage({ onLaunchApp }) {
         </div>
       </section>
 
-      {/* 7. LIVE EXPLORE FEED: Active Departure Pools Feed */}
-      <section id="explore-preview" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-[#267256] bg-[#EAF2EE] px-3 py-1 rounded-full border border-[#D0E2D8]">
-              03 • Live Campus Pools Feed
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1B1E1D] mt-3 tracking-tight">
-              Explore Active NST-RU Rides
-            </h2>
-            <p className="text-[#525955] text-sm mt-1">
-              Live departure pools scheduled by verified students. Click any pool or launch the full Explore Dashboard.
-            </p>
-          </div>
-
-          <button
-            onClick={onLaunchApp}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1A3D34] hover:bg-[#132E27] text-white text-xs font-bold transition-all shadow-sm self-start sm:self-auto"
-          >
-            <span>Open Full Explore Dashboard</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
-
-        {/* 3 Active Departure Pool Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Card 1 */}
-          <SpotlightCard className="bg-white rounded-3xl p-6 border border-[#E7E4DC] shadow-soft-card flex flex-col justify-between hover:border-[#1A3D34] transition-all hover:shadow-md">
-            <div>
-              <div className="flex items-center justify-between pb-3 border-b border-[#F0ECE1]">
-                <span className="text-xs font-bold text-[#1A3D34] bg-[#FAF8F5] px-2.5 py-0.5 rounded-full border border-[#E7E4DC]">
-                  DEP • Friday, 4:15 PM
-                </span>
-                <span className="text-xs font-bold text-emerald-800 bg-[#EAF2EE] px-2 py-0.5 rounded-full border border-[#D0E2D8] flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-emerald-600" />
-                  98% Match
-                </span>
-              </div>
-
-              <div className="my-3.5 p-3 rounded-2xl bg-[#FAF8F5] border border-[#E7E4DC]">
-                <div className="text-[10px] text-[#8C938F] font-bold uppercase tracking-wider">
-                  ROUTE
-                </div>
-                <div className="font-extrabold text-sm text-[#1B1E1D] mt-0.5 flex items-center justify-between">
-                  <span>Hostel 3 Gate</span>
-                  <span className="text-emerald-700">➔</span>
-                  <span>IGI Airport T3</span>
-                </div>
-                <div className="text-[11px] text-[#6B726F] mt-1">
-                  Posted by Prachi Vats (Hostel 3) • 5.0 ★
-                </div>
-              </div>
-
-              <div className="p-2.5 rounded-xl bg-[#EAF2EE]/60 border border-[#D0E2D8] text-[11px] text-[#1A3D34]">
-                <strong>AI Match:</strong> Splitting with 2 more peers drops fare to ₹350 each with boot luggage fit.
-              </div>
-            </div>
-
-            <div className="mt-4 pt-3 border-t border-[#F0ECE1] flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-bold text-[#8C938F] uppercase block">SPLIT FARE</span>
-                <span className="text-xl font-black text-[#1A3D34]">
-                  ₹350
-                  <span className="text-xs font-normal text-zinc-400 line-through ml-1.5">₹1,400 solo</span>
-                </span>
-              </div>
-              <button
-                onClick={onLaunchApp}
-                className="px-4 py-2 rounded-full bg-[#1A3D34] hover:bg-[#132E27] text-white text-xs font-bold transition-all shadow-sm"
-              >
-                Join in Explore ↗
-              </button>
-            </div>
-          </SpotlightCard>
-
-          {/* Card 2: Girls Only */}
-          <SpotlightCard className="bg-white rounded-3xl p-6 border border-pink-200 shadow-soft-card flex flex-col justify-between hover:border-pink-500 transition-all hover:shadow-md">
-            <div>
-              <div className="flex items-center justify-between pb-3 border-b border-[#F0ECE1]">
-                <span className="text-xs font-bold text-pink-700 bg-pink-50 px-2.5 py-0.5 rounded-full border border-pink-200">
-                  DEP • Friday, 3:45 PM
-                </span>
-                <span className="text-xs font-bold text-pink-700 bg-pink-100/60 px-2 py-0.5 rounded-full border border-pink-300">
-                  Girls Only Safe
-                </span>
-              </div>
-
-              <div className="my-3.5 p-3 rounded-2xl bg-pink-50/30 border border-pink-100">
-                <div className="text-[10px] text-pink-800 font-bold uppercase tracking-wider">
-                  ROUTE
-                </div>
-                <div className="font-extrabold text-sm text-[#1B1E1D] mt-0.5 flex items-center justify-between">
-                  <span>Hostel 1 Gate</span>
-                  <span className="text-pink-600">➔</span>
-                  <span>IGI Airport T3</span>
-                </div>
-                <div className="text-[11px] text-[#6B726F] mt-1">
-                  Posted by Kaashvi Saini (Hostel 1) • 4.95 ★
-                </div>
-              </div>
-
-              <div className="p-2.5 rounded-xl bg-pink-50 border border-pink-200 text-[11px] text-pink-900">
-                <strong>Safety Circle:</strong> Female-only airport cab transfer with guaranteed luggage space.
-              </div>
-            </div>
-
-            <div className="mt-4 pt-3 border-t border-[#F0ECE1] flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-bold text-[#8C938F] uppercase block">SPLIT FARE</span>
-                <span className="text-xl font-black text-[#1A3D34]">
-                  ₹467
-                  <span className="text-xs font-normal text-zinc-400 line-through ml-1.5">₹1,400 solo</span>
-                </span>
-              </div>
-              <button
-                onClick={onLaunchApp}
-                className="px-4 py-2 rounded-full bg-pink-600 hover:bg-pink-700 text-white text-xs font-bold transition-all shadow-sm"
-              >
-                Join in Explore ↗
-              </button>
-            </div>
-          </SpotlightCard>
-
-          {/* Card 3: NDLS */}
-          <SpotlightCard className="bg-white rounded-3xl p-6 border border-[#E7E4DC] shadow-soft-card flex flex-col justify-between hover:border-[#1A3D34] transition-all hover:shadow-md">
-            <div>
-              <div className="flex items-center justify-between pb-3 border-b border-[#F0ECE1]">
-                <span className="text-xs font-bold text-[#1A3D34] bg-[#FAF8F5] px-2.5 py-0.5 rounded-full border border-[#E7E4DC]">
-                  DEP • Friday, 4:30 PM
-                </span>
-                <span className="text-xs font-bold text-emerald-800 bg-[#EAF2EE] px-2 py-0.5 rounded-full border border-[#D0E2D8] flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-emerald-600" />
-                  88% Match
-                </span>
-              </div>
-
-              <div className="my-3.5 p-3 rounded-2xl bg-[#FAF8F5] border border-[#E7E4DC]">
-                <div className="text-[10px] text-[#8C938F] font-bold uppercase tracking-wider">
-                  ROUTE
-                </div>
-                <div className="font-extrabold text-sm text-[#1B1E1D] mt-0.5 flex items-center justify-between">
-                  <span>Main Campus Gate</span>
-                  <span className="text-emerald-700">➔</span>
-                  <span>NDLS Railway</span>
-                </div>
-                <div className="text-[11px] text-[#6B726F] mt-1">
-                  Posted by Ashwin Anand (Hostel 4) • 4.90 ★
-                </div>
-              </div>
-
-              <div className="p-2.5 rounded-xl bg-[#EAF2EE]/60 border border-[#D0E2D8] text-[11px] text-[#1A3D34]">
-                <strong>Train Catchers:</strong> Departing right after Session 4. Taking 4th seat saves ₹675.
-              </div>
-            </div>
-
-            <div className="mt-4 pt-3 border-t border-[#F0ECE1] flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-bold text-[#8C938F] uppercase block">SPLIT FARE</span>
-                <span className="text-xl font-black text-[#1A3D34]">
-                  ₹225
-                  <span className="text-xs font-normal text-zinc-400 line-through ml-1.5">₹900 solo</span>
-                </span>
-              </div>
-              <button
-                onClick={onLaunchApp}
-                className="px-4 py-2 rounded-full bg-[#1A3D34] hover:bg-[#132E27] text-white text-xs font-bold transition-all shadow-sm"
-              >
-                Join in Explore ↗
-              </button>
-            </div>
-          </SpotlightCard>
-        </div>
-      </section>
-
-      {/* 8. Multi-Modal Transit Comparison Matrix */}
+      {/* 7. Multi-Modal Transit Comparison Matrix */}
       <section id="multi-modal" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="text-xs font-bold uppercase tracking-widest text-[#267256] bg-[#EAF2EE] px-3 py-1 rounded-full border border-[#D0E2D8]">
