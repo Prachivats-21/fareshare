@@ -4,18 +4,19 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const port = parseInt(process.env.PORT || env.PORT || '5000', 10)
+  const previewPort = parseInt(process.env.PORT || env.PORT || '5000', 10)
+  const devPort = parseInt(process.env.DEV_PORT || env.DEV_PORT || '5173', 10)
 
   return {
     base: './',
     plugins: [react()],
     server: {
-      port: port,
+      port: devPort,
       host: '0.0.0.0',
       allowedHosts: true
     },
     preview: {
-      port: port,
+      port: previewPort,
       host: '0.0.0.0',
       allowedHosts: true
     }
