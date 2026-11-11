@@ -1,17 +1,48 @@
 import React, { useState } from 'react';
 import { 
   Sparkles, ShieldCheck, ArrowRight, Users, Clock, Compass, 
-  CheckCircle2, X, MessageSquare, Wallet, ExternalLink
+  CheckCircle2, X, MessageSquare, Wallet, ExternalLink, MapPin,
+  Car, Navigation, Check
 } from 'lucide-react';
 import { TEAM_MEMBERS, CORRIDORS } from '../data/fareshareData';
-import BlurText from './animations/BlurText';
-import RotatingText from './animations/RotatingText';
-import SplitFlapText from './animations/SplitFlapText';
+import TechText from './animations/TechText';
 import CountUp from './animations/CountUp';
 import SpotlightCard from './animations/SpotlightCard';
+import UserProfileDropdown from './UserProfileDropdown';
 
 export default function LandingPage({ onLaunchApp }) {
-  // Interactive Hero Simulator
+  // Destination options for Hero Simulator
+  const destinationCorridors = [
+    {
+      id: "igi",
+      name: "IGI Airport T3",
+      origin: "NST-RU Campus Gate 1",
+      destination: "IGI Airport Terminal 3",
+      distance: "44 KM • ~65 mins",
+      tag: "T3 Flight Express",
+      soloFare: 1400
+    },
+    {
+      id: "ndls",
+      name: "NDLS Railway",
+      origin: "NST-RU Main Gate",
+      destination: "New Delhi Railway (NDLS)",
+      distance: "31 KM • ~50 mins",
+      tag: "Train Catchers",
+      soloFare: 900
+    },
+    {
+      id: "cyber",
+      name: "Cyber City Mall",
+      origin: "NST-RU Clocktower",
+      destination: "Cyber City / Sector 18",
+      distance: "14 KM • ~25 mins",
+      tag: "Weekend Run",
+      soloFare: 450
+    }
+  ];
+
+  const [activeCorridor, setActiveCorridor] = useState(destinationCorridors[0]);
   const [heroRiders, setHeroRiders] = useState(4);
   const [prevFare, setPrevFare] = useState(1400);
 
@@ -20,15 +51,28 @@ export default function LandingPage({ onLaunchApp }) {
   const [feedbackSent, setFeedbackSent] = useState(false);
 
   // Dynamic calculations for Hero Simulator
-  const soloFare = 1400;
-  const splitFare = Math.round(soloFare / heroRiders);
-  const savings = soloFare - splitFare;
-  const savingsPercent = Math.round((savings / soloFare) * 100);
+  const splitFare = Math.round(activeCorridor.soloFare / heroRiders);
+  const savings = activeCorridor.soloFare - splitFare;
+  const savingsPercent = Math.round((savings / activeCorridor.soloFare) * 100);
 
   const handleRiderChange = (count) => {
     setPrevFare(splitFare);
     setHeroRiders(count);
   };
+
+  const handleCorridorChange = (c) => {
+    setPrevFare(splitFare);
+    setActiveCorridor(c);
+  };
+
+  // Team members with rich vibrant colors for their name icons
+  const teamList = [
+    { name: "Prachi Vats", bg: "from-emerald-500 to-teal-700 text-white shadow-emerald-500/20" },
+    { name: "Kaashvi Saini", bg: "from-rose-500 to-pink-600 text-white shadow-rose-500/20" },
+    { name: "Ashwin Anand", bg: "from-blue-500 to-indigo-600 text-white shadow-blue-500/20" },
+    { name: "Swapnil Pradhan", bg: "from-amber-500 to-orange-600 text-white shadow-amber-500/20" },
+    { name: "Akshat Kumar", bg: "from-purple-500 to-violet-700 text-white shadow-purple-500/20" }
+  ];
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-[#1B1E1D] flex flex-col font-sans">
@@ -64,7 +108,9 @@ export default function LandingPage({ onLaunchApp }) {
             <a href="#team" className="hover:text-[#1A3D34] transition-colors">Team</a>
           </nav>
 
+          {/* User Profile + Explore Live App CTA */}
           <div className="flex items-center gap-3">
+            <UserProfileDropdown />
             <button
               onClick={onLaunchApp}
               className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1A3D34] hover:bg-[#132E27] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
@@ -76,45 +122,35 @@ export default function LandingPage({ onLaunchApp }) {
         </div>
       </header>
 
-      {/* 3. Hero Section (Full Viewport with React Bits Animations) */}
+      {/* 3. Hero Section */}
       <section className="relative px-4 sm:px-6 lg:px-8 pt-10 pb-16 lg:py-20 max-w-7xl mx-auto w-full">
         {/* Subtle background ambient glow */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-tr from-emerald-100/60 via-amber-50/50 to-teal-100/40 blur-3xl pointer-events-none -z-10 rounded-full" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Left Hero Statement with BlurText & RotatingText */}
+          {/* Left Hero Statement with TechText in ALL CAPITAL LETTERS */}
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF2EE] border border-[#D0E2D8] text-xs font-bold text-[#1A3D34]">
               <Sparkles className="w-3.5 h-3.5 text-emerald-600 animate-spin" style={{ animationDuration: '6s' }} />
-              <span>AI-Powered Campus Travel Omnibox</span>
+              <span>AI-POWERED CAMPUS TRAVEL OMNIBOX</span>
             </div>
 
-            {/* React Bits BlurText Animation */}
-            <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-[#1B1E1D] leading-[1.1]">
-              <BlurText text="Split cabs. Save money." delay={100} />
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1A3D34] via-[#267256] to-emerald-600">
-                <BlurText text="Travel safe on campus." delay={120} />
-              </span>
-            </h1>
-
-            {/* Rotating Text for destinations */}
-            <div className="text-base sm:text-lg text-[#525955] leading-relaxed max-w-xl">
-              Stop overpaying for solo cabs or spamming chaotic WhatsApp groups. Tell FareShare where you're heading to{' '}
-              <span className="font-extrabold text-[#1A3D34] underline decoration-emerald-400 decoration-2 underline-offset-4">
-                <RotatingText 
-                  texts={[
-                    "IGI Airport Terminal 3",
-                    "NDLS Railway Station",
-                    "Cyber City & Sector 18",
-                    "Anand Vihar ISBT"
-                  ]} 
-                  interval={2600}
-                />
-              </span>{' '}
-              and our AI matches you with verified <span className="font-semibold text-emerald-800">@nst-ru.edu.in</span> peers in seconds.
+            {/* React Bits TechText in CAPITAL LETTERS */}
+            <div className="space-y-1">
+              <TechText 
+                text="SPLIT CABS. SAVE MONEY." 
+                className="text-4xl sm:text-6xl font-black text-[#1B1E1D] block leading-[1.08]" 
+              />
+              <TechText 
+                text="TRAVEL SAFE ON CAMPUS." 
+                className="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#1A3D34] via-[#267256] to-emerald-600 block leading-[1.08]" 
+              />
             </div>
+
+            <p className="text-base sm:text-lg text-[#525955] leading-relaxed max-w-xl">
+              Stop overpaying for solo cabs or spamming chaotic WhatsApp groups. Tell FareShare where you're heading and our AI matches you with verified <span className="font-semibold text-emerald-800">@nst-ru.edu.in</span> campus peers in seconds.
+            </p>
 
             {/* Key Value Badges */}
             <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-semibold text-[#4B524E]">
@@ -132,29 +168,14 @@ export default function LandingPage({ onLaunchApp }) {
               </div>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <button
-                onClick={onLaunchApp}
-                className="px-8 py-4 rounded-full bg-[#1A3D34] hover:bg-[#132E27] text-white text-base font-bold shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2 group"
-              >
-                <span>Launch Live App</span>
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </button>
-              <a
-                href="#problem"
-                className="px-6 py-4 rounded-full bg-white hover:bg-[#F4F1EA] text-[#1B1E1D] border border-[#E7E4DC] text-sm font-bold text-center transition-all shadow-sm"
-              >
-                Read Product Story ↓
-              </a>
-            </div>
           </div>
 
-          {/* Right Hero: Live Interactive Split Card with CountUp & SplitFlapText */}
+          {/* Right Hero: Modern Clean Live Fare Simulator Card (Redesigned Corridor UI) */}
           <div className="lg:col-span-5">
             <SpotlightCard className="bg-white rounded-3xl p-6 sm:p-7 border border-[#E7E4DC] shadow-hero-live">
+              
               {/* Header with live status */}
-              <div className="flex items-center justify-between pb-5 border-b border-[#F0ECE1]">
+              <div className="flex items-center justify-between pb-4 border-b border-[#F0ECE1]">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
                   <span className="text-xs font-bold uppercase tracking-wider text-[#1A3D34]">Live Fare Simulator</span>
@@ -164,20 +185,60 @@ export default function LandingPage({ onLaunchApp }) {
                 </span>
               </div>
 
-              {/* Route Corridor Indicator with Mechanical Split-Flap Departure Board */}
-              <div className="my-5 p-4 rounded-2xl bg-[#FAF8F5] border border-[#E7E4DC]">
-                <div className="text-[10px] font-bold text-[#8C938F] uppercase tracking-wider mb-1 flex items-center justify-between">
-                  <span>DEPARTURE CORRIDOR:</span>
-                  <span className="text-emerald-700 font-mono text-[10px]">T3 EXPRESS</span>
+              {/* REDESIGNED CORRIDOR JOURNEY UI (Clean, Spacious, No Clunky Letter Blocks) */}
+              <div className="my-5 space-y-3">
+                {/* 3 Corridor Selector Tabs */}
+                <div className="grid grid-cols-3 gap-1.5 p-1 bg-[#F4F1EA] rounded-2xl border border-[#E7E4DC]">
+                  {destinationCorridors.map((c) => {
+                    const isSelected = activeCorridor.id === c.id;
+                    return (
+                      <button
+                        key={c.id}
+                        onClick={() => handleCorridorChange(c)}
+                        className={`py-1.5 px-2 text-[11px] font-bold rounded-xl transition-all truncate ${
+                          isSelected
+                            ? 'bg-[#1A3D34] text-white shadow-sm'
+                            : 'text-[#525955] hover:text-[#1B1E1D]'
+                        }`}
+                      >
+                        {c.name}
+                      </button>
+                    );
+                  })}
                 </div>
-                <div className="mt-1 flex items-center justify-between">
-                  <SplitFlapText text="NST-RU GATE 1" />
-                  <span className="text-emerald-700 font-bold mx-2">➔</span>
-                  <SplitFlapText text="IGI AIRPORT T3" />
-                </div>
-                <div className="mt-2 text-xs text-[#6B726F] flex items-center justify-between">
-                  <span>44 KM • ~65 mins</span>
-                  <span className="line-through text-zinc-400">Solo Cab: ₹1,400</span>
+
+                {/* Sleek Journey Route Visual */}
+                <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#E7E4DC] space-y-3">
+                  <div className="flex items-center justify-between text-xs">
+                    {/* Origin */}
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-emerald-500 ring-4 ring-emerald-100" />
+                      <div>
+                        <span className="text-[10px] text-[#8C938F] uppercase font-bold block">Pickup Gate</span>
+                        <span className="font-extrabold text-[#1B1E1D]">{activeCorridor.origin}</span>
+                      </div>
+                    </div>
+
+                    {/* Destination */}
+                    <div className="flex items-center gap-2 text-right">
+                      <div>
+                        <span className="text-[10px] text-[#8C938F] uppercase font-bold block">Destination</span>
+                        <span className="font-extrabold text-[#1B1E1D]">{activeCorridor.destination}</span>
+                      </div>
+                      <div className="w-3 h-3 rounded-full bg-[#1A3D34] ring-4 ring-[#1A3D34]/10" />
+                    </div>
+                  </div>
+
+                  {/* Route Meta & Solo Rate */}
+                  <div className="pt-2.5 border-t border-[#E7E4DC] flex items-center justify-between text-xs text-[#6B726F]">
+                    <span className="font-medium flex items-center gap-1.5">
+                      <Navigation className="w-3.5 h-3.5 text-emerald-700" />
+                      {activeCorridor.distance}
+                    </span>
+                    <span className="text-zinc-400 line-through">
+                      Solo Cab: ₹{activeCorridor.soloFare}
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -206,15 +267,15 @@ export default function LandingPage({ onLaunchApp }) {
                 </div>
               </div>
 
-              {/* Live Fare Split Receipt Box with CountUp Animation */}
-              <div className="mt-6 p-5 rounded-2xl bg-gradient-to-br from-[#1A3D34] to-[#122A23] text-white shadow-inner">
+              {/* Live Fare Split Receipt Box with CountUp */}
+              <div className="mt-5 p-5 rounded-2xl bg-gradient-to-br from-[#1A3D34] to-[#122A23] text-white shadow-inner">
                 <div className="flex items-end justify-between">
                   <div>
                     <span className="text-[11px] text-emerald-300 font-semibold tracking-wider uppercase">
                       YOUR PER-RIDER SHARE
                     </span>
                     <div className="text-4xl font-extrabold tracking-tight mt-1 text-white">
-                      <CountUp from={prevFare} to={splitFare} prefix="₹" duration={600} />
+                      <CountUp from={prevFare} to={splitFare} prefix="₹" duration={500} />
                     </div>
                   </div>
                   <div className="text-right">
@@ -233,13 +294,6 @@ export default function LandingPage({ onLaunchApp }) {
                 </div>
               </div>
 
-              {/* Try It CTA */}
-              <button
-                onClick={onLaunchApp}
-                className="w-full mt-4 py-3 rounded-full bg-[#1A3D34] hover:bg-[#132E27] text-white text-xs font-bold tracking-wide transition-all shadow-sm"
-              >
-                Match With Peers Now ↗
-              </button>
             </SpotlightCard>
           </div>
 
@@ -291,7 +345,7 @@ export default function LandingPage({ onLaunchApp }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Card Left: The Old WhatsApp Nightmare */}
+          {/* Card Left */}
           <SpotlightCard className="bg-white rounded-3xl p-8 border border-red-200 shadow-sm relative overflow-hidden">
             <div className="flex items-center justify-between pb-4 border-b border-zinc-100">
               <span className="text-xs font-bold uppercase tracking-wider text-rose-700 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-200">
@@ -320,7 +374,7 @@ export default function LandingPage({ onLaunchApp }) {
             </ul>
           </SpotlightCard>
 
-          {/* Card Right: The FareShare AI Way */}
+          {/* Card Right */}
           <SpotlightCard className="bg-white rounded-3xl p-8 border border-emerald-200 shadow-sm relative overflow-hidden">
             <div className="flex items-center justify-between pb-4 border-b border-zinc-100">
               <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
@@ -397,7 +451,7 @@ export default function LandingPage({ onLaunchApp }) {
         </div>
       </section>
 
-      {/* 7. Multi-Modal Transit Comparison Matrix (Uber vs Ola vs Metro vs FareShare) */}
+      {/* 7. Multi-Modal Transit Comparison Matrix */}
       <section id="multi-modal" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="text-xs font-bold uppercase tracking-widest text-[#267256] bg-[#EAF2EE] px-3 py-1 rounded-full border border-[#D0E2D8]">
@@ -480,7 +534,7 @@ export default function LandingPage({ onLaunchApp }) {
         </div>
       </section>
 
-      {/* 8. Team EnderMen Showcase (ONLY NAMES, NO EXTRA INFO) */}
+      {/* 8. Team EnderMen Showcase (ONLY NAMES + COLORFUL AVATAR ICONS) */}
       <section id="team" className="py-16 bg-[#F4F1EA] border-y border-[#E7E4DC]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
@@ -495,24 +549,18 @@ export default function LandingPage({ onLaunchApp }) {
             </p>
           </div>
 
-          {/* Clean minimalist cards displaying ONLY names */}
+          {/* Clean minimalist cards displaying ONLY names with vibrant colored icons */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-            {[
-              "Prachi Vats",
-              "Kaashvi Saini",
-              "Ashwin Anand",
-              "Swapnil Pradhan",
-              "Akshat Kumar"
-            ].map((name, i) => (
+            {teamList.map((member, i) => (
               <SpotlightCard 
                 key={i} 
                 className="bg-white rounded-3xl p-6 border border-[#E7E4DC] shadow-sm text-center flex flex-col items-center justify-center min-h-[140px] hover:border-[#1A3D34] hover:shadow-md transition-all hover:scale-[1.02]"
               >
-                <div className="w-12 h-12 rounded-2xl bg-[#EAF2EE] text-[#1A3D34] flex items-center justify-center font-black text-base mb-3 shadow-inner">
-                  {name.split(' ').map(n => n[0]).join('')}
+                <div className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${member.bg} flex items-center justify-center font-black text-base mb-3 shadow-md`}>
+                  {member.name.split(' ').map(n => n[0]).join('')}
                 </div>
                 <h3 className="font-extrabold text-base text-[#1B1E1D] tracking-tight">
-                  {name}
+                  {member.name}
                 </h3>
               </SpotlightCard>
             ))}
@@ -520,28 +568,7 @@ export default function LandingPage({ onLaunchApp }) {
         </div>
       </section>
 
-      {/* 9. Final Launch CTA Banner */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full text-center">
-        <SpotlightCard className="bg-gradient-to-br from-[#1A3D34] via-[#122A23] to-[#1A3D34] text-white rounded-3xl p-10 sm:p-14 shadow-xl relative overflow-hidden">
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-            Ready to stop overpaying for campus rides?
-          </h2>
-          <p className="text-emerald-200 text-sm sm:text-base mt-4 max-w-xl mx-auto">
-            Try the live working FareShare MVP prototype. Switch personas, test conversational queries, and split fares in real time.
-          </p>
-          <div className="mt-8 flex justify-center">
-            <button
-              onClick={onLaunchApp}
-              className="px-8 py-4 rounded-full bg-white text-[#1A3D34] hover:bg-emerald-50 font-extrabold text-base shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2"
-            >
-              <span>Explore Live Prototype Now</span>
-              <ArrowRight className="w-5 h-5" />
-            </button>
-          </div>
-        </SpotlightCard>
-      </section>
-
-      {/* 10. Footer with Legal & Feedback Links */}
+      {/* 9. Footer with Legal & Feedback Links */}
       <footer className="mt-auto bg-[#FAF8F5] border-t border-[#E7E4DC] py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-[#6B726F]">
           <div className="flex items-center gap-3">
@@ -576,7 +603,7 @@ export default function LandingPage({ onLaunchApp }) {
         </div>
       </footer>
 
-      {/* MODAL 1: Terms of Service & Campus Conduct */}
+      {/* MODAL 1: Terms */}
       {activeModal === 'terms' && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full border border-[#E7E4DC] shadow-2xl relative max-h-[85vh] overflow-y-auto">
@@ -592,13 +619,10 @@ export default function LandingPage({ onLaunchApp }) {
                 <strong>1. Verified Students Only:</strong> Every rider and driver pool poster must possess a verified @nst-ru.edu.in email ID and valid student campus credentials.
               </p>
               <p>
-                <strong>2. Punctuality & Respect:</strong> Be at the designated campus pickup gate (Hostel 3 Gate, Gate 1, Main Gate) at least 5 minutes prior to departure.
+                <strong>2. Punctuality:</strong> Be at the designated campus pickup gate at least 5 minutes prior to departure.
               </p>
               <p>
-                <strong>3. Fair Fare Splitting:</strong> The calculated split amount must be settled via UPI within the 4-hour Ephemeral Grace Period. No predatory pricing or scalping allowed.
-              </p>
-              <p>
-                <strong>4. Zero Tolerance:</strong> Any harassment, discrimination, or violation of NST-RU student codes will result in permanent ban and campus disciplinary escalation.
+                <strong>3. Fair Fare Splitting:</strong> The calculated split amount must be settled via UPI within the 4-hour Ephemeral Grace Period.
               </p>
             </div>
             <button
@@ -611,7 +635,7 @@ export default function LandingPage({ onLaunchApp }) {
         </div>
       )}
 
-      {/* MODAL 2: Privacy Policy */}
+      {/* MODAL 2: Privacy */}
       {activeModal === 'privacy' && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full border border-[#E7E4DC] shadow-2xl relative max-h-[85vh] overflow-y-auto">
@@ -624,13 +648,10 @@ export default function LandingPage({ onLaunchApp }) {
             <h3 className="text-xl font-bold text-[#1B1E1D] mb-4">Privacy & Ephemeral Chat Policy</h3>
             <div className="space-y-4 text-xs text-[#525955] leading-relaxed">
               <p>
-                <strong>1. Phone Number Masking:</strong> Personal mobile numbers are never displayed publicly. Communication occurs strictly inside our Ephemeral Chat Drawer.
+                <strong>1. 4-Hour Auto-Purge:</strong> All coordination chat logs and route messages automatically expire and are purged 4 hours after trip completion.
               </p>
               <p>
-                <strong>2. 4-Hour Auto-Purge:</strong> To protect student safety and privacy, all coordination chat logs, route chats, and messages automatically expire and are purged from memory 4 hours after trip completion.
-              </p>
-              <p>
-                <strong>3. No Location Tracking Outside Corridors:</strong> We only log origin campus gates and destination transport hubs for ride matching.
+                <strong>2. Phone Number Masking:</strong> Personal mobile numbers are never displayed publicly. Communication occurs strictly inside our Ephemeral Chat Drawer.
               </p>
             </div>
             <button
@@ -643,7 +664,7 @@ export default function LandingPage({ onLaunchApp }) {
         </div>
       )}
 
-      {/* MODAL 3: Student Feedback */}
+      {/* MODAL 3: Feedback */}
       {activeModal === 'feedback' && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full border border-[#E7E4DC] shadow-2xl relative">
@@ -654,10 +675,6 @@ export default function LandingPage({ onLaunchApp }) {
               <X className="w-5 h-5" />
             </button>
             <h3 className="text-xl font-bold text-[#1B1E1D] mb-2">Campus Feedback & Hub Request</h3>
-            <p className="text-xs text-[#6B726F] mb-4">
-              Help Team EnderMen improve FareShare. What campus route or feature should we add next?
-            </p>
-
             {feedbackSent ? (
               <div className="p-6 rounded-2xl bg-emerald-50 text-emerald-800 text-center font-bold text-sm">
                 🎉 Thank you! Your feedback has been sent to Team EnderMen.
@@ -672,25 +689,19 @@ export default function LandingPage({ onLaunchApp }) {
                     setFeedbackSent(false);
                   }, 1800);
                 }}
-                className="space-y-4"
+                className="space-y-4 text-xs"
               >
-                <div>
-                  <label className="text-[11px] font-bold text-[#1B1E1D] uppercase">Your Name & Hostel</label>
-                  <input
-                    required
-                    placeholder="e.g. Rahul Sharma, Hostel 2"
-                    className="w-full mt-1 px-3 py-2 text-xs rounded-xl border border-[#E7E4DC] bg-[#FAF8F5] focus:outline-none focus:border-[#1A3D34]"
-                  />
-                </div>
-                <div>
-                  <label className="text-[11px] font-bold text-[#1B1E1D] uppercase">Feedback or Route Idea</label>
-                  <textarea
-                    required
-                    rows={3}
-                    placeholder="e.g. Please add a route from NST-RU to Connaught Place on Saturday mornings..."
-                    className="w-full mt-1 px-3 py-2 text-xs rounded-xl border border-[#E7E4DC] bg-[#FAF8F5] focus:outline-none focus:border-[#1A3D34]"
-                  />
-                </div>
+                <input
+                  required
+                  placeholder="Your Name & Hostel"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E7E4DC] bg-[#FAF8F5]"
+                />
+                <textarea
+                  required
+                  rows={3}
+                  placeholder="e.g. Please add a route from NST-RU to Connaught Place..."
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E7E4DC] bg-[#FAF8F5]"
+                />
                 <button
                   type="submit"
                   className="w-full py-2.5 rounded-full bg-[#1A3D34] text-white text-xs font-bold"
