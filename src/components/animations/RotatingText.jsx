@@ -16,19 +16,17 @@ export default function RotatingText({
       setTimeout(() => {
         setIndex((prev) => (prev + 1) % texts.length);
         setFadeState('in');
-      }, 300);
+      }, 250);
     }, interval);
 
     return () => clearInterval(timer);
   }, [texts, interval]);
 
   return (
-    <span className={`inline-block relative overflow-hidden align-baseline ${className}`}>
+    <span className={`inline align-baseline ${className}`}>
       <span
-        className={`inline-block transition-all duration-300 transform-gpu ${
-          fadeState === 'in'
-            ? 'translate-y-0 opacity-100 filter-none'
-            : '-translate-y-4 opacity-0 blur-sm'
+        className={`inline transition-opacity duration-250 ${
+          fadeState === 'in' ? 'opacity-100' : 'opacity-20'
         }`}
       >
         {texts[index]}

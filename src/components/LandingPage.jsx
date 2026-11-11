@@ -151,13 +151,13 @@ export default function LandingPage({ onLaunchApp }) {
             </div>
 
             {/* Symmetrical & Even Subtitle */}
-            <div className="text-base sm:text-[17px] text-[#525955] leading-relaxed max-w-xl space-y-2 [text-wrap:balance]">
-              <p className="font-normal text-[#484F4B]">
+            <div className="text-base sm:text-lg text-[#525955] leading-relaxed max-w-2xl space-y-1.5">
+              <p>
                 Stop overpaying for solo cabs or spamming chaotic WhatsApp groups.
               </p>
               <p>
                 Tell FareShare where you're heading to{' '}
-                <span className="font-extrabold text-[#1A3D34] underline decoration-emerald-400 decoration-2 underline-offset-4 inline-block min-w-[200px] text-center">
+                <span className="font-extrabold text-[#1A3D34] underline decoration-emerald-400 decoration-2 underline-offset-4 inline">
                   <RotatingText 
                     texts={[
                       "IGI Airport Terminal 3",
