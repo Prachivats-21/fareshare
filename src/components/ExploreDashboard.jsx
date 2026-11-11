@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Sparkles, ShieldCheck, ArrowLeft, Users, Clock, Search, 
   MapPin, Luggage, Star, CheckCircle, Send, X, ArrowUpRight,
@@ -80,6 +80,11 @@ function parseBilingualIntent(query) {
 }
 
 export default function ExploreDashboard({ onBackToStory }) {
+  // Always scroll to top when mounting the dashboard
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+
   // Active Logged-in Persona
   const [selectedPersona, setSelectedPersona] = useState(TEAM_MEMBERS[0]); // Prachi Vats
   

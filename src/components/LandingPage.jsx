@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Sparkles, ShieldCheck, ArrowRight, Users, Clock, Compass, 
   CheckCircle2, X, MessageSquare, Wallet, ExternalLink, MapPin,
@@ -12,6 +12,11 @@ import SpotlightCard from './animations/SpotlightCard';
 import UserProfileDropdown from './UserProfileDropdown';
 
 export default function LandingPage({ onLaunchApp }) {
+  // Always scroll to top when mounting the landing page
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+
   // Destination options for Hero Simulator
   const destinationCorridors = [
     {

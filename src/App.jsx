@@ -7,6 +7,16 @@ export default function App() {
   const [showPreloader, setShowPreloader] = useState(true);
   const [currentView, setCurrentView] = useState('story'); // 'story' | 'explore'
 
+  const handleLaunchApp = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    setCurrentView('explore');
+  };
+
+  const handleBackToStory = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    setCurrentView('story');
+  };
+
   return (
     <div className="relative min-h-screen bg-[#FAF8F5]">
       {/* 1. Cinematic Preloader (Eshan Singh / Vastworld inspired) */}
@@ -16,9 +26,9 @@ export default function App() {
 
       {/* 2. Main Views */}
       {currentView === 'story' ? (
-        <LandingPage onLaunchApp={() => setCurrentView('explore')} />
+        <LandingPage onLaunchApp={handleLaunchApp} />
       ) : (
-        <ExploreDashboard onBackToStory={() => setCurrentView('story')} />
+        <ExploreDashboard onBackToStory={handleBackToStory} />
       )}
     </div>
   );
