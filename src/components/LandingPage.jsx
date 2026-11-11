@@ -10,6 +10,7 @@ import RotatingText from './animations/RotatingText';
 import CountUp from './animations/CountUp';
 import SpotlightCard from './animations/SpotlightCard';
 import UserProfileDropdown from './UserProfileDropdown';
+import FareShareLogo from './FareShareLogo';
 
 export default function LandingPage({ onLaunchApp }) {
   // Always force scroll to top when mounting the landing page
@@ -104,9 +105,7 @@ export default function LandingPage({ onLaunchApp }) {
       <header className="sticky top-0 z-40 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-[#E7E4DC]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#1A3D34] to-[#267256] text-white flex items-center justify-center font-bold text-base shadow-sm">
-              FS
-            </div>
+            <FareShareLogo className="w-10 h-10" />
             <div>
               <span className="font-extrabold text-lg tracking-tight text-[#1B1E1D]">FareShare</span>
               <span className="text-[10px] text-emerald-700 bg-emerald-50 font-bold px-1.5 py-0.5 rounded ml-2 border border-emerald-200">
@@ -731,6 +730,7 @@ export default function LandingPage({ onLaunchApp }) {
       <footer className="mt-auto bg-[#FAF8F5] border-t border-[#E7E4DC] py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-[#6B726F]">
           <div className="flex items-center gap-3">
+            <FareShareLogo className="w-6 h-6" animated={false} />
             <span className="font-extrabold text-sm text-[#1B1E1D]">FareShare</span>
             <span>•</span>
             <span>coNStruCT 2.0 Hackathon Edition</span>

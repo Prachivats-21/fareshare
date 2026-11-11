@@ -8,6 +8,7 @@ import {
 import { TEAM_MEMBERS, CORRIDORS, INITIAL_POOLS } from '../data/fareshareData';
 import { playPop, playSuccess, playToggle } from '../utils/sound';
 import confetti from 'canvas-confetti';
+import FareShareLogo from './FareShareLogo';
 
 // Universal Cab Deep Links (Direct Native App on Mobile / Web Booking on Desktop)
 const getUberDeepLink = (dest) =>
@@ -341,11 +342,14 @@ export default function ExploreDashboard({ onBackToStory }) {
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-lg tracking-tight text-[#1B1E1D]">FareShare</span>
-              <span className="text-[10px] font-bold text-emerald-800 bg-[#EAF2EE] border border-[#D0E2D8] px-2 py-0.5 rounded-full">
-                CAMPUS RIDE POOLING • ALL COLLEGES
-              </span>
+            <div className="flex items-center gap-2.5">
+              <FareShareLogo className="w-8 h-8" />
+              <div>
+                <span className="font-extrabold text-lg tracking-tight text-[#1B1E1D]">FareShare</span>
+                <span className="text-[10px] font-bold text-emerald-800 bg-[#EAF2EE] border border-[#D0E2D8] px-2 py-0.5 rounded-full ml-2">
+                  CAMPUS RIDE POOLING
+                </span>
+              </div>
             </div>
           </div>
 

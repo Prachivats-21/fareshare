@@ -1,0 +1,62 @@
+import React from 'react';
+
+export default function FareShareLogo({ className = "w-9 h-9", animated = true }) {
+  return (
+    <div className={`relative shrink-0 ${className} group select-none`}>
+      <svg
+        viewBox="0 0 48 48"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-full drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
+      >
+        {/* Rounded squircle badge with Forest Olive to Emerald gradient */}
+        <rect width="48" height="48" rx="13" fill="url(#fareshare_logo_bg)" />
+        <rect x="0.5" y="0.5" width="47" height="47" rx="12.5" stroke="#34D399" strokeOpacity="0.35" />
+        
+        {/* Ambient glow aura */}
+        <circle cx="24" cy="22" r="11" fill="#34D399" fillOpacity="0.2" filter="blur(4px)" />
+        
+        {/* Converging shared travel route arches */}
+        <path
+          d="M11 37C14 29 18.5 25.5 24 25.5C29.5 25.5 34 29 37 37"
+          stroke="#6EE7B7"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeDasharray="2 3"
+          opacity="0.8"
+        />
+        
+        {/* Modern streamlined Cab & Shared Ride Cabin */}
+        <path
+          d="M16 29.5L18.2 21.2C18.7 19.3 20.4 18 22.3 18H25.7C27.6 18 29.3 19.3 29.8 21.2L32 29.5C32.3 30.5 31.5 31.5 30.4 31.5H17.6C16.5 31.5 15.7 30.5 16 29.5Z"
+          fill="#FAF8F5"
+        />
+        
+        {/* Windshield / Cockpit Glass */}
+        <path
+          d="M19 22.5H29L27.8 19.8C27.5 19.3 27 19 26.4 19H21.6C21 19 20.5 19.3 20.2 19.8L19 22.5Z"
+          fill="#1A3D34"
+        />
+        
+        {/* Dual LED Headlights */}
+        <circle cx="18.5" cy="27" r="1.5" fill="#34D399" />
+        <circle cx="29.5" cy="27" r="1.5" fill="#34D399" />
+        
+        {/* Center Fare-Split / Route Beacon Pin Star */}
+        <path
+          d="M24 6.5L25.3 10.5C25.5 11 26 11.5 26.5 11.7L30.5 13L26.5 14.3C26 14.5 25.5 15 25.3 15.5L24 19.5L22.7 15.5C22.5 15 22 14.5 21.5 14.3L17.5 13L21.5 11.7C22 11.5 22.5 11 22.7 10.5L24 6.5Z"
+          fill="#34D399"
+          className={animated ? "animate-pulse" : ""}
+        />
+
+        <defs>
+          <linearGradient id="fareshare_logo_bg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#1A3D34" />
+            <stop offset="0.65" stopColor="#122A23" />
+            <stop offset="1" stopColor="#267256" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  );
+}
