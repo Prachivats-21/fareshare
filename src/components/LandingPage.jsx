@@ -150,21 +150,27 @@ export default function LandingPage({ onLaunchApp }) {
               />
             </div>
 
-            <p className="text-base sm:text-lg text-[#525955] leading-relaxed max-w-xl">
-              Stop overpaying for solo cabs or spamming chaotic WhatsApp groups. Tell FareShare where you're heading to{' '}
-              <span className="font-extrabold text-[#1A3D34] underline decoration-emerald-400 decoration-2 underline-offset-4 inline-block">
-                <RotatingText 
-                  texts={[
-                    "IGI Airport Terminal 3",
-                    "NDLS Railway Station",
-                    "Cyber City & Sector 18",
-                    "Anand Vihar ISBT"
-                  ]} 
-                  interval={2400}
-                />
-              </span>{' '}
-              and our AI matches you with verified <span className="font-semibold text-emerald-800">@nst-ru.edu.in</span> campus peers in seconds.
-            </p>
+            {/* Symmetrical & Even Subtitle */}
+            <div className="text-base sm:text-[17px] text-[#525955] leading-relaxed max-w-xl space-y-2 [text-wrap:balance]">
+              <p className="font-normal text-[#484F4B]">
+                Stop overpaying for solo cabs or spamming chaotic WhatsApp groups.
+              </p>
+              <p>
+                Tell FareShare where you're heading to{' '}
+                <span className="font-extrabold text-[#1A3D34] underline decoration-emerald-400 decoration-2 underline-offset-4 inline-block min-w-[200px] text-center">
+                  <RotatingText 
+                    texts={[
+                      "IGI Airport Terminal 3",
+                      "NDLS Railway Station",
+                      "Cyber City & Sector 18",
+                      "Anand Vihar ISBT"
+                    ]} 
+                    interval={2400}
+                  />
+                </span>{' '}
+                and our AI matches you with verified <span className="font-semibold text-emerald-800">@nst-ru.edu.in</span> campus peers in seconds.
+              </p>
+            </div>
 
             {/* Key Value Badges */}
             <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-semibold text-[#4B524E]">

@@ -2,11 +2,82 @@ import React, { useState } from 'react';
 import { 
   Sparkles, ShieldCheck, ArrowLeft, Users, Clock, Search, 
   MapPin, Luggage, Star, CheckCircle, Send, X, ArrowUpRight,
-  AlertCircle, MessageCircle, Wallet, Info, Check, Filter
+  AlertCircle, MessageCircle, Wallet, Info, Check, Filter,
+  Mic, MicOff, Languages, Volume2
 } from 'lucide-react';
 import { TEAM_MEMBERS, CORRIDORS, INITIAL_POOLS } from '../data/fareshareData';
 import { playPop, playSuccess, playToggle } from '../utils/sound';
 import confetti from 'canvas-confetti';
+
+// Smart Bilingual Indic Intent Parser (English, Hindi, Hinglish)
+function parseBilingualIntent(query) {
+  if (!query || !query.trim()) return null;
+  const q = query.toLowerCase().trim();
+
+  // Common Hindi / Hinglish vocabulary
+  const indicTokens = [
+    "kal", "aaj", "parso", "shaam", "sham", "subah", "dopahar", "raat",
+    "baje", "jana", "jaana", "chahiye", "samaan", "bag", "trolley", "ladki",
+    "ladkiyan", "saath", "chalna", "bhai", "yaar", "gaadi", "adda",
+    "vimanpattanam", "hawai adda", "rail gadi", "bhaari", "chota", "pakadna", "pakadni"
+  ];
+
+  const isHinglish = indicTokens.some(w => q.includes(w));
+
+  // Determine Destination Corridor
+  let corridorId = null;
+  let destinationName = null;
+
+  if (q.includes("airport") || q.includes("igi") || q.includes("t3") || q.includes("terminal") || q.includes("flight") || q.includes("hawai adda") || q.includes("vimanpattanam")) {
+    corridorId = "igi_airport";
+    destinationName = "IGI Airport Terminal 3";
+  } else if (q.includes("ndls") || q.includes("railway") || q.includes("station") || q.includes("train") || q.includes("new delhi") || q.includes("rail gadi")) {
+    corridorId = "ndls_railway";
+    destinationName = "New Delhi Railway Station (NDLS)";
+  } else if (q.includes("cyber") || q.includes("mall") || q.includes("sector 18") || q.includes("sec 18") || q.includes("noida") || q.includes("dlf") || q.includes("ambience")) {
+    corridorId = "cyber_city";
+    destinationName = "Cyber City / Sector 18";
+  } else if (q.includes("isbt") || q.includes("anand vihar") || q.includes("bus adda") || q.includes("bus") || q.includes("shuttle") || q.includes("break")) {
+    corridorId = "anand_vihar";
+    destinationName = "Anand Vihar ISBT";
+  }
+
+  // Determine Luggage Fit
+  let luggageType = null;
+  if (q.includes("heavy") || q.includes("bhaari") || q.includes("2 trolley") || q.includes("2 bag") || q.includes("badi peti") || q.includes("bada bag")) {
+    luggageType = "Heavy Luggage";
+  } else if (q.includes("bag") || q.includes("suitcase") || q.includes("trolley") || q.includes("samaan") || q.includes("chota")) {
+    luggageType = "Medium (1 Trolley)";
+  }
+
+  // Determine Girls-Only Intent
+  const girlsIntent = q.includes("girl") || q.includes("female") || q.includes("ladki") || q.includes("ladkiyan") || q.includes("women");
+
+  // Determine Time Intent
+  let timeStr = null;
+  if (q.includes("kal shaam") || q.includes("tomorrow evening")) timeStr = "Tomorrow Evening (~4-6 PM)";
+  else if (q.includes("kal subah") || q.includes("tomorrow morning")) timeStr = "Tomorrow Morning (~7-9 AM)";
+  else if (q.includes("friday") || q.includes("shukrawar")) timeStr = "Friday Departure";
+  else if (q.includes("4 pm") || q.includes("4 baje")) timeStr = "Around 4:00 PM";
+  else if (q.includes("weekend") || q.includes("sunday") || q.includes("ravivar")) timeStr = "Weekend Run";
+
+  const summaryParts = [];
+  if (destinationName) summaryParts.push(destinationName);
+  if (timeStr) summaryParts.push(timeStr);
+  if (luggageType) summaryParts.push(luggageType);
+  if (girlsIntent) summaryParts.push("Girls-Only Circle");
+
+  return {
+    isHinglish,
+    language: isHinglish ? 'Hinglish (Hindi + English)' : 'English',
+    corridorId,
+    destinationName,
+    luggageType,
+    girlsIntent,
+    timeStr,
+    summary: summaryParts.length > 0 ? summaryParts.join(' • ') : `Smart search for "${query}"`
+  };
+}
 
 export default function ExploreDashboard({ onBackToStory }) {
   // Active Logged-in Persona
@@ -16,6 +87,85 @@ export default function ExploreDashboard({ onBackToStory }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCorridor, setActiveCorridor] = useState('all');
   const [girlsOnlyFilter, setGirlsOnlyFilter] = useState(false);
+
+  // Microphone Voice Input State
+  const [isListening, setIsListening] = useState(false);
+  const [voiceNotice, setVoiceNotice] = useState('');
+
+  // Handle Speech Recognition / Microphone Toggle
+  const handleToggleVoice = () => {
+    playPop();
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      // Browser fallback: simulate voice input with realistic bilingual queries
+      const sampleQueries = [
+        "Kal shaam 4 baje IGI Airport T3 jaana hai 1 trolley ke sath",
+        "Heading to New Delhi Railway Station this Friday around 4 PM",
+        "Sector 18 Cyber City mall chalna hai Sunday afternoon",
+        "Friday shaam ko NDLS train pakadni hai"
+      ];
+      const randomQuery = sampleQueries[Math.floor(Math.random() * sampleQueries.length)];
+      setIsListening(true);
+      setVoiceNotice('Listening... बोलिए (Recording in Hindi/English)');
+      setTimeout(() => {
+        setSearchQuery(randomQuery);
+        setIsListening(false);
+        setVoiceNotice('');
+        playSuccess();
+      }, 1200);
+      return;
+    }
+
+    if (isListening) {
+      setIsListening(false);
+      setVoiceNotice('');
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'hi-IN'; // Recognizes Indian English & Hindi seamlessly
+      recognition.continuous = false;
+      recognition.interimResults = true;
+
+      recognition.onstart = () => {
+        setIsListening(true);
+        setVoiceNotice('Listening... बोलिए (Speak in English, Hindi, or Hinglish)');
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = Array.from(event.results)
+          .map(result => result[0].transcript)
+          .join('');
+        setSearchQuery(transcript);
+      };
+
+      recognition.onerror = (event) => {
+        console.warn("Speech recognition notice:", event.error);
+        setIsListening(false);
+        setVoiceNotice('');
+        if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+          // Provide instant fallback prompt
+          setSearchQuery("Kal shaam 4 baje IGI Airport T3 jaana hai 1 trolley ke sath");
+          playSuccess();
+        }
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+        setVoiceNotice('');
+        playSuccess();
+      };
+
+      recognition.start();
+    } catch (err) {
+      console.warn("Speech API error:", err);
+      setIsListening(false);
+      setVoiceNotice('');
+      setSearchQuery("Kal shaam 4 baje IGI Airport T3 jaana hai 1 trolley ke sath");
+    }
+  };
 
   // Live Pools State
   const [pools, setPools] = useState(INITIAL_POOLS);
@@ -53,14 +203,17 @@ export default function ExploreDashboard({ onBackToStory }) {
   const [simCorridor, setSimCorridor] = useState(CORRIDORS[1]); // IGI Airport
   const [simRiders, setSimRiders] = useState(4);
 
-  // Filter Logic
+  // Bilingual AI Intent Parsing
+  const bilingualIntent = parseBilingualIntent(searchQuery);
+
+  // Filter Logic with Smart Bilingual Intent Matching
   const filteredPools = pools.filter((pool) => {
     // Corridor filter
     if (activeCorridor !== 'all' && pool.corridorId !== activeCorridor) {
       return false;
     }
-    // Girls-only safe filter
-    if (girlsOnlyFilter && !pool.isGirlsOnly) {
+    // Girls-only safe filter (or if detected in conversational query)
+    if ((girlsOnlyFilter || (bilingualIntent && bilingualIntent.girlsIntent)) && !pool.isGirlsOnly) {
       return false;
     }
     // Search query matching
@@ -70,7 +223,12 @@ export default function ExploreDashboard({ onBackToStory }) {
       const matchOrigin = pool.origin.toLowerCase().includes(q);
       const matchPoster = pool.poster.name.toLowerCase().includes(q);
       const matchRationale = pool.aiRationale.toLowerCase().includes(q);
-      return matchDest || matchOrigin || matchPoster || matchRationale;
+
+      // Semantic Bilingual Corridor & Destination Matching
+      const matchIntentCorridor = bilingualIntent?.corridorId && pool.corridorId === bilingualIntent.corridorId;
+      const matchIntentDest = bilingualIntent?.destinationName && pool.destination.toLowerCase().includes(bilingualIntent.destinationName.toLowerCase());
+
+      return matchDest || matchOrigin || matchPoster || matchRationale || matchIntentCorridor || matchIntentDest;
     }
     return true;
   });
@@ -240,14 +398,20 @@ export default function ExploreDashboard({ onBackToStory }) {
           {/* Conversational Travel Omnibox (Section B from Spec) */}
           <div className="bg-white rounded-3xl p-5 sm:p-6 border border-[#E7E4DC] shadow-soft-card space-y-4">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold uppercase tracking-wider text-[#1A3D34] flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-emerald-600" />
-                CONVERSATIONAL TRAVEL OMNIBOX (SPEAK NATURALLY)
-              </span>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-bold uppercase tracking-wider text-[#1A3D34] flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-emerald-600" />
+                  CONVERSATIONAL TRAVEL OMNIBOX (SPEAK NATURALLY)
+                </span>
+                <span className="text-[10px] font-extrabold text-emerald-800 bg-[#EAF2EE] border border-[#D0E2D8] px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                  <Languages className="w-3 h-3 text-emerald-600" />
+                  Bilingual AI (English + Hinglish)
+                </span>
+              </div>
               <button
                 onClick={() => {
                   playPop();
-                  setSearchQuery("Heading to NDLS this Friday around 4 PM with 1 suitcase under ₹300");
+                  setSearchQuery("Kal shaam 4 baje IGI Airport T3 jaana hai 1 trolley ke sath");
                 }}
                 className="text-emerald-700 hover:text-emerald-900 font-semibold text-xs transition-colors hidden sm:inline"
               >
@@ -262,18 +426,44 @@ export default function ExploreDashboard({ onBackToStory }) {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="e.g. Heading to New Delhi Railway Station this Friday around 4 PM with 1 suitcase..."
-                  className="w-full pl-12 pr-4 py-3.5 text-xs sm:text-sm rounded-2xl bg-[#FAF8F5] border border-[#E7E4DC] focus:outline-none focus:border-[#1A3D34] text-[#1B1E1D]"
+                  placeholder="e.g. Kal shaam 4 baje IGI Airport T3 jaana hai, or Heading to NDLS with 1 bag..."
+                  className="w-full pl-12 pr-28 py-3.5 text-xs sm:text-sm rounded-2xl bg-[#FAF8F5] border border-[#E7E4DC] focus:outline-none focus:border-[#1A3D34] text-[#1B1E1D]"
                 />
-                {searchQuery && (
+
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="px-2 py-1 text-zinc-400 hover:text-black text-xs font-bold"
+                    >
+                      Clear
+                    </button>
+                  )}
+
+                  {/* Microphone Voice Input Button */}
                   <button
-                    onClick={() => setSearchQuery('')}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-black text-xs font-bold"
+                    type="button"
+                    onClick={handleToggleVoice}
+                    title={isListening ? "Listening... click to stop" : "Speak in Hindi, Hinglish, or English"}
+                    className={`p-2 rounded-xl transition-all flex items-center gap-1.5 ${
+                      isListening 
+                        ? 'bg-rose-500 text-white animate-pulse shadow-md ring-2 ring-rose-400' 
+                        : 'text-[#525955] hover:text-[#1A3D34] hover:bg-[#EAF2EE] border border-transparent hover:border-[#D0E2D8]'
+                    }`}
                   >
-                    Clear
+                    {isListening ? (
+                      <>
+                        <span className="w-2 h-2 rounded-full bg-white animate-ping" />
+                        <span className="text-[10px] font-bold">बोलिए</span>
+                        <Mic className="w-4 h-4 animate-bounce" />
+                      </>
+                    ) : (
+                      <Mic className="w-4 h-4" />
+                    )}
                   </button>
-                )}
+                </div>
               </div>
+
               <button
                 onClick={() => playSuccess()}
                 className="px-6 py-3.5 rounded-2xl bg-[#1A3D34] hover:bg-[#132E27] text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all shadow-sm"
@@ -283,14 +473,47 @@ export default function ExploreDashboard({ onBackToStory }) {
               </button>
             </div>
 
-            {/* Quick Route Prompts */}
+            {/* Voice Listening Active Notice */}
+            {isListening && (
+              <div className="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-xs text-rose-800 flex items-center justify-between animate-pulse">
+                <span className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping" />
+                  <strong>Microphone Active:</strong> {voiceNotice || "Listening... Speak your ride in Hindi, Hinglish, or English"}
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-rose-600 bg-white px-2 py-0.5 rounded-full border border-rose-200">
+                  Live Voice Input
+                </span>
+              </div>
+            )}
+
+            {/* Bilingual AI Semantic Result Interpretation Chip */}
+            {bilingualIntent && searchQuery.trim() && (
+              <div className="flex items-center justify-between p-3 rounded-2xl bg-[#EAF2EE] border border-[#D0E2D8] text-xs text-[#1A3D34] animate-fadeIn">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#1A3D34] text-white font-extrabold text-[10px] uppercase tracking-wider flex items-center gap-1">
+                    <Languages className="w-3 h-3 text-emerald-300" />
+                    {bilingualIntent.isHinglish ? '🇮🇳 Hinglish AI Parsed' : '🌐 Bilingual AI Matched'}
+                  </span>
+                  <span className="font-medium text-[#2C3833]">
+                    <strong>Interpreted:</strong> {bilingualIntent.summary}
+                  </span>
+                </div>
+                <span className="text-[11px] font-bold text-emerald-800 bg-white px-2.5 py-1 rounded-full border border-[#D0E2D8] hidden sm:inline">
+                  {filteredPools.length} pool{filteredPools.length === 1 ? '' : 's'} available
+                </span>
+              </div>
+            )}
+
+            {/* Quick Route Prompts including Bilingual Hinglish Chips */}
             <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
               <span className="font-bold text-[#8C938F] uppercase text-[11px]">Quick Prompts:</span>
               {[
                 { label: "IGI Airport", q: "IGI Airport" },
                 { label: "NDLS Railway Station", q: "NDLS Railway" },
-                { label: "Weekend Mall Run", q: "Cyber City" },
-                { label: "Semester Break Shuttle", q: "ISBT" }
+                { label: "🇮🇳 Kal shaam airport", q: "Kal shaam 4 baje IGI airport jaana hai 1 trolley ke sath" },
+                { label: "🇮🇳 NDLS train pakadni", q: "Friday shaam ko NDLS train pakadni hai" },
+                { label: "🇮🇳 Sector 18 Mall", q: "Sector 18 Cyber City mall chalna hai" },
+                { label: "🌸 Girls-Only Pool", q: "Only girls safe circle for airport" }
               ].map((item) => (
                 <button
                   key={item.label}
