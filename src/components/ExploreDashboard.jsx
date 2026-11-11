@@ -191,7 +191,7 @@ export default function ExploreDashboard({ onBackToStory }) {
     {
       id: 1,
       sender: "Prachi Vats",
-      text: "Hey everyone! I'll be waiting at Hostel 3 Gate right at 4:10 PM. Cab is booked (Silver Dzire DL 1Z 4021).",
+      text: "Hey everyone! I'll be waiting at Campus Main Gate right at 4:10 PM. Cab is booked (Silver Dzire DL 1Z 4021).",
       time: "4:02 PM",
       isCurrentUser: false
     },
@@ -282,19 +282,18 @@ export default function ExploreDashboard({ onBackToStory }) {
       id: `pool-${Date.now()}`,
       departureTime: newPoolTime,
       matchScore: 95,
-      origin: `${selectedPersona.hostel} Gate`,
+      origin: "Campus Main Gate",
       destination: newPoolDestination,
       corridorId: "igi_airport",
       poster: {
         name: selectedPersona.name,
-        hostel: selectedPersona.hostel,
         rating: `${selectedPersona.rating.toFixed(2)} ★`,
         avatarBg: selectedPersona.avatarBg,
         initials: selectedPersona.initials
       },
       bootSpace: newPoolLuggage,
       tags: ["Campus Verified ID", "Newly Created Pool"],
-      isGirlsOnly: selectedPersona.hostel.includes("Girls"),
+      isGirlsOnly: selectedPersona.name === "Kaashvi Saini",
       soloCab: 1400,
       uberGo: 1400,
       olaMini: 1350,
@@ -303,7 +302,7 @@ export default function ExploreDashboard({ onBackToStory }) {
       seatsOccupied: 1,
       farePerPerson: 350,
       savingsPercent: 75,
-      aiRationale: `${selectedPersona.name} posted a new departure pool from ${selectedPersona.hostel} Gate to ${newPoolDestination}. Estimated 4-way split drops fare to ₹350 each.`
+      aiRationale: `${selectedPersona.name} posted a new departure pool from Campus Main Gate to ${newPoolDestination}. Estimated 4-way split drops fare to ₹350 each.`
     };
     setPools([created, ...pools]);
     setShowPostPoolModal(false);
@@ -621,7 +620,7 @@ export default function ExploreDashboard({ onBackToStory }) {
                         ORIGIN GATE ➔ DESTINATION HUB
                       </div>
                       <div className="font-bold text-sm text-[#1B1E1D] mt-1 flex items-center justify-between">
-                        <span>{pool.origin.replace("NST-RU Campus ", "")}</span>
+                        <span>{pool.origin}</span>
                         <span className="text-emerald-700">➔</span>
                         <span>{pool.destination}</span>
                       </div>
@@ -639,7 +638,7 @@ export default function ExploreDashboard({ onBackToStory }) {
                             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
                           </div>
                           <div className="text-[11px] text-[#6B726F]">
-                            {pool.poster.hostel} • {pool.poster.rating}
+                            Verified Student • {pool.poster.rating}
                           </div>
                         </div>
                       </div>
@@ -758,7 +757,7 @@ export default function ExploreDashboard({ onBackToStory }) {
               Interactive Campus Fare-Split Simulator
             </h2>
             <p className="text-xs sm:text-sm text-[#525955] mt-1">
-              Select an NST-RU route corridor and drag the student count to inspect real-time per-student fare reduction.
+              Select a campus route corridor and drag the student count to inspect real-time per-student fare reduction.
             </p>
           </div>
 
@@ -909,7 +908,7 @@ export default function ExploreDashboard({ onBackToStory }) {
                     </span>
                   </div>
                   <div className="text-xs text-[#6B726F] mt-0.5">
-                    {activeChatPool.origin.replace("NST-RU Campus ", "")} ➔ {activeChatPool.destination}
+                    {activeChatPool.origin} ➔ {activeChatPool.destination}
                   </div>
                 </div>
                 <button
@@ -989,7 +988,7 @@ export default function ExploreDashboard({ onBackToStory }) {
                   <Wallet className="w-4 h-4 text-amber-700" />
                 </div>
                 <div className="text-[11px] text-amber-800 mt-1">
-                  Pay to: <strong>prachi@okaxis</strong> (Hostel 3)
+                  Pay to: <strong>prachi@okaxis</strong>
                 </div>
                 <button
                   onClick={() => {

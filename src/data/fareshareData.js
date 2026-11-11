@@ -1,48 +1,38 @@
 export const TEAM_MEMBERS = [
   {
     name: "Prachi Vats",
-    role: "Product & Strategy Lead",
-    hostel: "Hostel 3 (Girls)",
+    github: "https://github.com/Prachivats-21",
     rating: 5.0,
     avatarBg: "from-emerald-500 to-teal-700",
-    initials: "PV",
-    badge: "Hostel 3 President"
+    initials: "PV"
   },
   {
     name: "Kaashvi Saini",
-    role: "UX & Community Safety",
-    hostel: "Hostel 1 (Girls)",
+    github: "https://github.com/Kaashviw3spaces",
     rating: 4.95,
     avatarBg: "from-rose-500 to-pink-700",
-    initials: "KS",
-    badge: "Safety Circle Lead"
+    initials: "KS"
   },
   {
     name: "Ashwin Anand",
-    role: "Full-Stack & Matching Architect",
-    hostel: "Hostel 4 (Boys)",
+    github: "https://github.com/ashuwuin",
     rating: 4.90,
     avatarBg: "from-blue-500 to-indigo-700",
-    initials: "AA",
-    badge: "Core Systems"
+    initials: "AA"
   },
   {
     name: "Swapnil Pradhan",
-    role: "AI & Route Optimization",
-    hostel: "Hostel 2 (Boys)",
+    github: "https://github.com/suwupnil",
     rating: 4.92,
     avatarBg: "from-amber-500 to-orange-700",
-    initials: "SP",
-    badge: "Fare Algorithms"
+    initials: "SP"
   },
   {
     name: "Akshat Kumar",
-    role: "Frontend & Micro-Interactions",
-    hostel: "Hostel 4 (Boys)",
+    github: "https://github.com/Akshat-xe",
     rating: 4.91,
     avatarBg: "from-purple-500 to-violet-700",
-    initials: "AK",
-    badge: "Design Systems"
+    initials: "AK"
   }
 ];
 
@@ -107,18 +97,17 @@ export const INITIAL_POOLS = [
     id: "pool-1",
     departureTime: "Friday, 4:15 PM",
     matchScore: 98,
-    origin: "NST-RU Campus Hostel 3 Gate",
+    origin: "Campus Gate 3",
     destination: "IGI Airport Terminal 3",
     corridorId: "igi_airport",
     poster: {
       name: "Prachi Vats",
-      hostel: "Hostel 3 (Girls)",
       rating: "5.00 ★",
       avatarBg: "bg-emerald-600",
       initials: "PV"
     },
     bootSpace: "Medium Boot (1 Trolley)",
-    tags: ["Campus Verified ID", "Girls & Mixed Safe", "1 Trolley Boot Space"],
+    tags: ["Campus Verified ID", "Safe Travel Circle", "1 Trolley Boot Space"],
     isGirlsOnly: false,
     soloCab: 1400,
     uberGo: 1400,
@@ -128,18 +117,17 @@ export const INITIAL_POOLS = [
     seatsOccupied: 3,
     farePerPerson: 350,
     savingsPercent: 75,
-    aiRationale: "Prachi Vats is heading to IGI T3 right after 3:30 PM lab. Splitting with 2 more peers drops your fare from ₹1,400 solo down to ₹350 each (75% savings) with guaranteed luggage boot space and @nst-ru.edu.in verification."
+    aiRationale: "Prachi Vats is heading to IGI T3 right after lab. Splitting with 2 more peers drops your fare from ₹1,400 solo down to ₹350 each (75% savings) with guaranteed luggage boot space and verified student ID."
   },
   {
     id: "pool-2",
     departureTime: "Friday, 3:45 PM",
     matchScore: 92,
-    origin: "NST-RU Campus Gate 1",
+    origin: "Campus Gate 1",
     destination: "IGI Airport Terminal 3",
     corridorId: "igi_airport",
     poster: {
       name: "Kaashvi Saini",
-      hostel: "Hostel 1 (Girls)",
       rating: "4.95 ★",
       avatarBg: "bg-pink-600",
       initials: "KS"
@@ -155,18 +143,17 @@ export const INITIAL_POOLS = [
     seatsOccupied: 2,
     farePerPerson: 467,
     savingsPercent: 67,
-    aiRationale: "Kaashvi Saini departs Hostel 1 for IGI T3 flights. Dedicated Girls-Only preference circle ensuring verified campus peer safety and direct terminal drop."
+    aiRationale: "Kaashvi Saini departs Campus Gate 1 for IGI T3 flights. Dedicated Girls-Only preference circle ensuring verified campus peer safety and direct terminal drop."
   },
   {
     id: "pool-3",
     departureTime: "Friday, 4:30 PM",
     matchScore: 88,
-    origin: "NST-RU Main Gate",
+    origin: "Campus Main Gate",
     destination: "New Delhi Railway Station (NDLS)",
     corridorId: "ndls_railway",
     poster: {
       name: "Ashwin Anand",
-      hostel: "Hostel 4 (Boys)",
       rating: "4.90 ★",
       avatarBg: "bg-blue-600",
       initials: "AA"
@@ -188,12 +175,11 @@ export const INITIAL_POOLS = [
     id: "pool-4",
     departureTime: "Friday, 3:45 PM",
     matchScore: 85,
-    origin: "NST-RU Hostel 2 Gate",
+    origin: "Campus North Gate",
     destination: "Anand Vihar ISBT / Bus Hub",
     corridorId: "isbt_shuttle",
     poster: {
       name: "Swapnil Pradhan",
-      hostel: "Hostel 2 (Boys)",
       rating: "4.92 ★",
       avatarBg: "bg-amber-600",
       initials: "SP"
@@ -215,12 +201,11 @@ export const INITIAL_POOLS = [
     id: "pool-5",
     departureTime: "Friday, 5:30 PM",
     matchScore: 89,
-    origin: "NST-RU Campus Gate 2",
+    origin: "Campus Gate 2",
     destination: "IGI Airport Terminal 2 & 3",
     corridorId: "igi_airport",
     poster: {
       name: "Akshat Kumar",
-      hostel: "Hostel 4 (Boys)",
       rating: "4.91 ★",
       avatarBg: "bg-purple-600",
       initials: "AK"

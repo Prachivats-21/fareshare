@@ -59,7 +59,7 @@ export default function UserProfileDropdown() {
             <div className="flex items-center justify-between">
               <span className="text-[10px] uppercase font-bold tracking-wider text-emerald-800 bg-[#EAF2EE] px-2 py-0.5 rounded-full border border-[#D0E2D8] flex items-center gap-1">
                 <ShieldCheck className="w-3 h-3 text-emerald-600" />
-                NST-RU Verified
+                Campus Verified
               </span>
               <span className="text-xs font-bold text-amber-600">{userProfile.rating}</span>
             </div>
@@ -237,7 +237,7 @@ export default function UserProfileDropdown() {
             <div className="space-y-3">
               {[
                 {
-                  route: "NST-RU Gate 1 ➔ IGI Airport Terminal 3",
+                  route: "Campus Gate 1 ➔ IGI Airport Terminal 3",
                   date: "Nov 08, 2026 • 4:15 PM",
                   coRiders: "Kaashvi S., Swapnil P., Driver",
                   farePaid: "₹350",
@@ -355,12 +355,12 @@ export default function UserProfileDropdown() {
 
             <h3 className="text-xl font-bold text-[#1B1E1D] mb-2">Campus SOS & Safety Support</h3>
             <p className="text-xs text-[#6B726F] mb-4">
-              Direct emergency helplines for NST-RU students while traveling.
+              Direct emergency helplines for Campus students while traveling.
             </p>
 
             <div className="space-y-3 text-xs">
               <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200">
-                <div className="font-bold text-rose-900">NST-RU Campus Security Main Desk</div>
+                <div className="font-bold text-rose-900">Campus Campus Security Main Desk</div>
                 <div className="text-rose-700 font-mono mt-0.5">+91 11 2670 9999 (24/7 Gate Patrol)</div>
               </div>
               <div className="p-3.5 rounded-2xl bg-pink-50 border border-pink-200">

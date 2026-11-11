@@ -9,7 +9,6 @@ import LetterHighlightStream from './animations/LetterHighlightStream';
 import RotatingText from './animations/RotatingText';
 import CountUp from './animations/CountUp';
 import SpotlightCard from './animations/SpotlightCard';
-import UserProfileDropdown from './UserProfileDropdown';
 
 export default function LandingPage({ onLaunchApp }) {
   // Always force scroll to top when mounting the landing page
@@ -30,7 +29,7 @@ export default function LandingPage({ onLaunchApp }) {
     {
       id: "igi",
       name: "IGI Airport T3",
-      origin: "NST-RU Campus Gate 1",
+      origin: "Campus Gate 1",
       destination: "IGI Airport Terminal 3",
       distance: "44 KM • ~65 mins",
       tag: "T3 Flight Express",
@@ -39,7 +38,7 @@ export default function LandingPage({ onLaunchApp }) {
     {
       id: "ndls",
       name: "NDLS Railway",
-      origin: "NST-RU Main Gate",
+      origin: "Campus Main Gate",
       destination: "New Delhi Railway (NDLS)",
       distance: "31 KM • ~50 mins",
       tag: "Train Catchers",
@@ -48,7 +47,7 @@ export default function LandingPage({ onLaunchApp }) {
     {
       id: "cyber",
       name: "Cyber City Mall",
-      origin: "NST-RU Clocktower",
+      origin: "Campus Clocktower",
       destination: "Cyber City / Sector 18",
       distance: "14 KM • ~25 mins",
       tag: "Weekend Run",
@@ -79,13 +78,13 @@ export default function LandingPage({ onLaunchApp }) {
     setActiveCorridor(c);
   };
 
-  // Team members with rich vibrant colors for their name icons
+  // Team members with rich vibrant colors and GitHub links
   const teamList = [
-    { name: "Prachi Vats", bg: "from-emerald-500 to-teal-700 text-white shadow-emerald-500/20" },
-    { name: "Kaashvi Saini", bg: "from-rose-500 to-pink-600 text-white shadow-rose-500/20" },
-    { name: "Ashwin Anand", bg: "from-blue-500 to-indigo-600 text-white shadow-blue-500/20" },
-    { name: "Swapnil Pradhan", bg: "from-amber-500 to-orange-600 text-white shadow-amber-500/20" },
-    { name: "Akshat Kumar", bg: "from-purple-500 to-violet-700 text-white shadow-purple-500/20" }
+    { name: "Prachi Vats", github: "https://github.com/Prachivats-21", bg: "from-emerald-500 to-teal-700 text-white shadow-emerald-500/20" },
+    { name: "Kaashvi Saini", github: "https://github.com/Kaashviw3spaces", bg: "from-rose-500 to-pink-600 text-white shadow-rose-500/20" },
+    { name: "Ashwin Anand", github: "https://github.com/ashuwuin", bg: "from-blue-500 to-indigo-600 text-white shadow-blue-500/20" },
+    { name: "Swapnil Pradhan", github: "https://github.com/suwupnil", bg: "from-amber-500 to-orange-600 text-white shadow-amber-500/20" },
+    { name: "Akshat Kumar", github: "https://github.com/Akshat-xe", bg: "from-purple-500 to-violet-700 text-white shadow-purple-500/20" }
   ];
 
   return (
@@ -122,9 +121,7 @@ export default function LandingPage({ onLaunchApp }) {
             <a href="#team" className="hover:text-[#1A3D34] transition-colors">Team</a>
           </nav>
 
-          {/* User Profile + Explore Live App CTA */}
           <div className="flex items-center gap-3">
-            <UserProfileDropdown />
             <button
               onClick={onLaunchApp}
               className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1A3D34] hover:bg-[#132E27] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
@@ -340,7 +337,7 @@ export default function LandingPage({ onLaunchApp }) {
             <div key={group} className="flex items-center gap-8 text-xs font-semibold tracking-wider uppercase text-emerald-200">
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                NST-RU GATE 1 ⇄ IGI AIRPORT T3 (₹350/RIDER)
+                CAMPUS GATE 1 ⇄ IGI AIRPORT T3 (₹350/RIDER)
               </span>
               <span>•</span>
               <span className="flex items-center gap-2">
@@ -350,12 +347,12 @@ export default function LandingPage({ onLaunchApp }) {
               <span>•</span>
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                CLOCKTOWER ⇄ CYBER CITY & MALL OF INDIA (₹113/RIDER)
+                CLOCKTOWER ⇄ CYBER CITY & MALL (₹113/RIDER)
               </span>
               <span>•</span>
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                HOSTEL 3 ⇄ BREAK SHUTTLE & ISBT (₹200/RIDER)
+                NORTH GATE ⇄ BREAK SHUTTLE & ISBT (₹200/RIDER)
               </span>
               <span>•</span>
             </div>
@@ -390,7 +387,7 @@ export default function LandingPage({ onLaunchApp }) {
             <ul className="mt-6 space-y-4 text-sm text-[#525955]">
               <li className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✕</span>
-                <span>Spamming 10+ hostel WhatsApp groups hoping someone is heading to the airport at the same hour.</span>
+                <span>Spamming 10+ student WhatsApp groups hoping someone is heading to the airport at the same hour.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✕</span>
@@ -446,7 +443,7 @@ export default function LandingPage({ onLaunchApp }) {
               02 • The 3-Step Process
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1B1E1D] mt-3 tracking-tight">
-              From hostel room to terminal in 3 clicks.
+              From campus to terminal in 3 clicks.
             </h2>
           </div>
 
@@ -513,7 +510,7 @@ export default function LandingPage({ onLaunchApp }) {
               <tbody className="divide-y divide-[#F0ECE1] text-[#1B1E1D]">
                 <tr className="hover:bg-[#FAF8F5] transition-colors">
                   <td className="py-4 px-6 font-bold">
-                    NST-RU ⇄ IGI Airport T3
+                    Campus ⇄ IGI Airport T3
                     <span className="block text-xs text-[#6B726F] font-normal">44 KM • ~65 mins</span>
                   </td>
                   <td className="py-4 px-6 text-[#525955]">₹1,400</td>
@@ -530,7 +527,7 @@ export default function LandingPage({ onLaunchApp }) {
 
                 <tr className="hover:bg-[#FAF8F5] transition-colors">
                   <td className="py-4 px-6 font-bold">
-                    NST-RU ⇄ NDLS Railway
+                    Campus ⇄ NDLS Railway
                     <span className="block text-xs text-[#6B726F] font-normal">31 KM • ~50 mins</span>
                   </td>
                   <td className="py-4 px-6 text-[#525955]">₹900</td>
@@ -547,7 +544,7 @@ export default function LandingPage({ onLaunchApp }) {
 
                 <tr className="hover:bg-[#FAF8F5] transition-colors">
                   <td className="py-4 px-6 font-bold">
-                    NST-RU ⇄ Cyber City / Mall
+                    Campus ⇄ Cyber City / Mall
                     <span className="block text-xs text-[#6B726F] font-normal">14 KM • ~25 mins</span>
                   </td>
                   <td className="py-4 px-6 text-[#525955]">₹450</td>
@@ -585,17 +582,24 @@ export default function LandingPage({ onLaunchApp }) {
           {/* Clean minimalist cards displaying ONLY names with vibrant colored icons */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
             {teamList.map((member, i) => (
-              <SpotlightCard 
-                key={i} 
-                className="bg-white rounded-3xl p-6 border border-[#E7E4DC] shadow-sm text-center flex flex-col items-center justify-center min-h-[140px] hover:border-[#1A3D34] hover:shadow-md transition-all hover:scale-[1.02]"
+              <a
+                key={i}
+                href={member.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block group"
               >
-                <div className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${member.bg} flex items-center justify-center font-black text-base mb-3 shadow-md`}>
-                  {member.name.split(' ').map(n => n[0]).join('')}
-                </div>
-                <h3 className="font-extrabold text-base text-[#1B1E1D] tracking-tight">
-                  {member.name}
-                </h3>
-              </SpotlightCard>
+                <SpotlightCard 
+                  className="bg-white rounded-3xl p-6 border border-[#E7E4DC] shadow-sm text-center flex flex-col items-center justify-center min-h-[140px] group-hover:border-[#1A3D34] group-hover:shadow-md transition-all group-hover:scale-[1.02]"
+                >
+                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${member.bg} flex items-center justify-center font-black text-base mb-3 shadow-md`}>
+                    {member.name.split(' ').map(n => n[0]).join('')}
+                  </div>
+                  <h3 className="font-extrabold text-base text-[#1B1E1D] tracking-tight group-hover:text-[#1A3D34] transition-colors">
+                    {member.name}
+                  </h3>
+                </SpotlightCard>
+              </a>
             ))}
           </div>
         </div>
@@ -780,13 +784,13 @@ export default function LandingPage({ onLaunchApp }) {
               >
                 <input
                   required
-                  placeholder="Your Name & Hostel"
+                  placeholder="Your Name & Campus / College"
                   className="w-full px-3 py-2 text-xs rounded-xl border border-[#E7E4DC] bg-[#FAF8F5]"
                 />
                 <textarea
                   required
                   rows={3}
-                  placeholder="e.g. Please add a route from NST-RU to Connaught Place..."
+                  placeholder="e.g. Please add a route from Campus to Connaught Place..."
                   className="w-full px-3 py-2 text-xs rounded-xl border border-[#E7E4DC] bg-[#FAF8F5]"
                 />
                 <button
