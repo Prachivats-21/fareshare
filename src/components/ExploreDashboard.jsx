@@ -35,11 +35,11 @@ function parseBilingualIntent(query) {
     corridorId = "ndls_railway";
     destinationName = "New Delhi Railway Station (NDLS)";
   } else if (q.includes("cyber") || q.includes("mall") || q.includes("sector 18") || q.includes("sec 18") || q.includes("noida") || q.includes("dlf") || q.includes("ambience")) {
-    corridorId = "cyber_city";
-    destinationName = "Cyber City / Sector 18";
+    corridorId = "mall_cybercity";
+    destinationName = "Cyber City / Sector 18 Mall";
   } else if (q.includes("isbt") || q.includes("anand vihar") || q.includes("bus adda") || q.includes("bus") || q.includes("shuttle") || q.includes("break")) {
-    corridorId = "anand_vihar";
-    destinationName = "Anand Vihar ISBT";
+    corridorId = "isbt_shuttle";
+    destinationName = "Anand Vihar ISBT / Bus Hub";
   }
 
   // Determine Luggage Fit
@@ -278,13 +278,22 @@ export default function ExploreDashboard({ onBackToStory }) {
   const handleCreatePool = (e) => {
     e.preventDefault();
     playSuccess();
+
+    const corridorMap = {
+      'IGI Airport Terminal 3': { id: 'igi_airport', solo: 1400, ola: 1350, metro: 60, split: 350, save: 75 },
+      'New Delhi Railway Station (NDLS)': { id: 'ndls_railway', solo: 900, ola: 880, metro: 50, split: 225, save: 75 },
+      'Cyber City / Sector 18 Mall': { id: 'mall_cybercity', solo: 450, ola: 430, metro: 30, split: 113, save: 75 },
+      'Anand Vihar ISBT / Bus Hub': { id: 'isbt_shuttle', solo: 800, ola: 780, metro: 50, split: 200, save: 75 }
+    };
+    const cData = corridorMap[newPoolDestination] || corridorMap['IGI Airport Terminal 3'];
+
     const created = {
       id: `pool-${Date.now()}`,
       departureTime: newPoolTime,
       matchScore: 95,
       origin: "Campus Main Gate",
       destination: newPoolDestination,
-      corridorId: "igi_airport",
+      corridorId: cData.id,
       poster: {
         name: selectedPersona.name,
         rating: `${selectedPersona.rating.toFixed(2)} ★`,
@@ -294,15 +303,15 @@ export default function ExploreDashboard({ onBackToStory }) {
       bootSpace: newPoolLuggage,
       tags: ["Campus Verified ID", "Newly Created Pool"],
       isGirlsOnly: selectedPersona.name === "Kaashvi Saini",
-      soloCab: 1400,
-      uberGo: 1400,
-      olaMini: 1350,
-      metroFare: 60,
+      soloCab: cData.solo,
+      uberGo: cData.solo,
+      olaMini: cData.ola,
+      metroFare: cData.metro,
       seatsTotal: 4,
       seatsOccupied: 1,
-      farePerPerson: 350,
-      savingsPercent: 75,
-      aiRationale: `${selectedPersona.name} posted a new departure pool from Campus Main Gate to ${newPoolDestination}. Estimated 4-way split drops fare to ₹350 each.`
+      farePerPerson: cData.split,
+      savingsPercent: cData.save,
+      aiRationale: `${selectedPersona.name} posted a new departure pool from Campus Main Gate to ${newPoolDestination}. Estimated 4-way split drops fare to ₹${cData.split} each (${cData.save}% savings).`
     };
     setPools([created, ...pools]);
     setShowPostPoolModal(false);
@@ -982,27 +991,37 @@ export default function ExploreDashboard({ onBackToStory }) {
               ))}
 
               {/* UPI Quick Settlement Box */}
-              <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 mt-4">
+              <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 mt-4 space-y-2">
                 <div className="flex items-center justify-between font-bold">
                   <span>Settle Cab Fare (₹{activeChatPool.farePerPerson})</span>
                   <Wallet className="w-4 h-4 text-amber-700" />
                 </div>
-                <div className="text-[11px] text-amber-800 mt-1">
-                  Pay to: <strong>prachi@okaxis</strong>
+                <div className="text-[11px] text-amber-800">
+                  Pay to: <strong>prachi@okaxis</strong> • <span>Ref: #{activeChatPool.id}</span>
                 </div>
-                <button
-                  onClick={() => {
-                    playSuccess();
-                    setUpiSettled(true);
-                  }}
-                  className={`w-full mt-2.5 py-2 rounded-xl text-xs font-bold transition-all ${
-                    upiSettled
-                      ? 'bg-emerald-700 text-white'
-                      : 'bg-[#1A3D34] hover:bg-[#132E27] text-white'
-                  }`}
-                >
-                  {upiSettled ? '✓ Fare Paid via UPI' : 'Mark ₹' + activeChatPool.farePerPerson + ' Paid via UPI'}
-                </button>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                  <a
+                    href={`upi://pay?pa=prachi@okaxis&pn=Prachi%20Vats&am=${activeChatPool.farePerPerson}&cu=INR&tn=FareShare%20Pool%20${activeChatPool.id}`}
+                    className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white transition-all shadow-sm text-center"
+                  >
+                    <span>Open UPI App</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                  <button
+                    onClick={() => {
+                      playSuccess();
+                      setUpiSettled(!upiSettled);
+                    }}
+                    className={`py-2 px-3 rounded-xl text-xs font-bold transition-all text-center ${
+                      upiSettled
+                        ? 'bg-emerald-700 text-white shadow-sm'
+                        : 'bg-[#1A3D34] hover:bg-[#132E27] text-white'
+                    }`}
+                  >
+                    {upiSettled ? '✓ Marked Paid' : 'Confirm Split Paid'}
+                  </button>
+                </div>
               </div>
             </div>
 

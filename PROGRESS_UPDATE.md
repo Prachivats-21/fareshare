@@ -5,7 +5,7 @@
 ---
 
 ### 1. Executive Summary & Problem
-University students frequently overpay for solo cabs (up to ₹1,400 to IGI Airport T3, ₹900 to NDLS Railway) or spam chaotic hostel WhatsApp groups trying to find co-riders. Dragging luggage through 2 metro line transfers is exhausting, while unverified group chats leak personal phone numbers. 
+University and college students frequently overpay for solo cabs (up to ₹1,400 to IGI Airport T3, ₹900 to NDLS Railway) or spam chaotic student WhatsApp groups trying to find co-riders. Dragging luggage through 2 metro line transfers is exhausting, while unverified group chats leak personal phone numbers. 
 
 **FareShare** matches verified college peers traveling along identical departure corridors, dividing cab fares 4 ways to deliver **door-to-door AC cab comfort at metro prices (up to 75% savings)** with zero data leakage.
 
