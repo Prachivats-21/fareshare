@@ -3,7 +3,7 @@ import {
   Sparkles, ShieldCheck, ArrowLeft, Users, Clock, Search, 
   MapPin, Luggage, Star, CheckCircle, Send, X, ArrowUpRight,
   AlertCircle, MessageCircle, Wallet, Info, Check, Filter,
-  Mic, MicOff, Languages, Volume2, Car, ExternalLink, QrCode, Smartphone
+  Mic, MicOff, Languages, Volume2, Car, ExternalLink, QrCode, Smartphone, Loader2
 } from 'lucide-react';
 import { TEAM_MEMBERS, CORRIDORS, INITIAL_POOLS } from '../data/fareshareData';
 import { playPop, playSuccess, playToggle } from '../utils/sound';
@@ -212,6 +212,12 @@ export default function ExploreDashboard({ onBackToStory }) {
   const [upiSettled, setUpiSettled] = useState(false);
   const [showUpiModal, setShowUpiModal] = useState(false);
 
+  // AI Matching Engine State
+  const [isAiMatching, setIsAiMatching] = useState(false);
+  const [showAiMatchModal, setShowAiMatchModal] = useState(false);
+  const [matchedPoolData, setMatchedPoolData] = useState(null);
+  const [highlightedPoolId, setHighlightedPoolId] = useState(null);
+
   // New Pool Modal State
   const [showPostPoolModal, setShowPostPoolModal] = useState(false);
   const [newPoolDestination, setNewPoolDestination] = useState('IGI Airport Terminal 3');
@@ -262,6 +268,59 @@ export default function ExploreDashboard({ onBackToStory }) {
     });
     setRequestedPools((prev) => ({ ...prev, [pool.id]: true }));
     setActiveChatPool(pool);
+  };
+
+  // Handle AI Match Rides Execution
+  const handleAiMatch = () => {
+    playPop();
+    setIsAiMatching(true);
+
+    let effectiveQuery = searchQuery.trim();
+    if (!effectiveQuery) {
+      effectiveQuery = "Kal shaam 4 baje IGI Airport T3 jaana hai 1 trolley ke sath";
+      setSearchQuery(effectiveQuery);
+    }
+
+    setTimeout(() => {
+      setIsAiMatching(false);
+      playSuccess();
+      confetti({
+        particleCount: 65,
+        spread: 65,
+        origin: { y: 0.6 }
+      });
+
+      const q = effectiveQuery.toLowerCase();
+      let candidates = pools.filter((p) => {
+        if (girlsOnlyFilter && !p.isGirlsOnly) return false;
+        const matchDest = p.destination.toLowerCase().includes(q);
+        const matchOrigin = p.origin.toLowerCase().includes(q);
+        const matchRationale = p.aiRationale.toLowerCase().includes(q);
+        const matchCorridor = bilingualIntent?.corridorId && p.corridorId === bilingualIntent.corridorId;
+        const matchIntentDest = bilingualIntent?.destinationName && p.destination.toLowerCase().includes(bilingualIntent.destinationName.toLowerCase());
+        return matchDest || matchOrigin || matchRationale || matchCorridor || matchIntentDest;
+      });
+
+      if (candidates.length === 0) {
+        candidates = filteredPools.length > 0 ? filteredPools : pools;
+      }
+
+      // Sort by match score
+      const sorted = [...candidates].sort((a, b) => b.matchScore - a.matchScore);
+      const topMatch = sorted[0] || pools[0];
+
+      setMatchedPoolData(topMatch);
+      setHighlightedPoolId(topMatch.id);
+      setShowAiMatchModal(true);
+
+      // Scroll smoothly down to pools section
+      setTimeout(() => {
+        const feedElem = document.getElementById('pools-feed');
+        if (feedElem) {
+          feedElem.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 200);
+    }, 850);
   };
 
   // Handle Sending Chat
@@ -494,11 +553,22 @@ export default function ExploreDashboard({ onBackToStory }) {
               </div>
 
               <button
-                onClick={() => playSuccess()}
-                className="px-6 py-3.5 rounded-2xl bg-[#1A3D34] hover:bg-[#132E27] text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all shadow-sm"
+                type="button"
+                onClick={handleAiMatch}
+                disabled={isAiMatching}
+                className="px-6 py-3.5 rounded-2xl bg-[#1A3D34] hover:bg-[#132E27] active:scale-95 text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all shadow-sm disabled:opacity-85"
               >
-                <Sparkles className="w-4 h-4 text-emerald-300" />
-                <span>AI Match Rides</span>
+                {isAiMatching ? (
+                  <>
+                    <Loader2 className="w-4 h-4 text-emerald-300 animate-spin" />
+                    <span>Matching 4-Way Pools...</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4 text-emerald-300 animate-pulse" />
+                    <span>AI Match Rides</span>
+                  </>
+                )}
               </button>
             </div>
 
@@ -600,7 +670,7 @@ export default function ExploreDashboard({ onBackToStory }) {
         </div>
 
         {/* 4. Active Departure Pools Bento Grid (Section C from Spec) */}
-        <div className="space-y-4">
+        <div id="pools-feed" className="space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-[#8C938F] uppercase tracking-wider">
               {filteredPools.length} POOLS MATCHING YOUR CRITERIA
@@ -615,11 +685,26 @@ export default function ExploreDashboard({ onBackToStory }) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPools.map((pool) => {
               const isRequested = requestedPools[pool.id];
+              const isAiPick = pool.id === highlightedPoolId;
               return (
                 <div
                   key={pool.id}
-                  className="bg-white rounded-3xl p-6 border border-[#E7E4DC] shadow-soft-card flex flex-col justify-between hover:border-[#1A3D34] transition-all hover:shadow-md"
+                  id={`pool-${pool.id}`}
+                  className={`bg-white rounded-3xl p-6 border shadow-soft-card flex flex-col justify-between transition-all duration-300 ${
+                    isAiPick 
+                      ? 'border-emerald-500 ring-2 ring-emerald-500/60 shadow-xl scale-[1.01] bg-gradient-to-b from-emerald-50/20 to-white' 
+                      : 'border-[#E7E4DC] hover:border-[#1A3D34] hover:shadow-md'
+                  }`}
                 >
+                  {isAiPick && (
+                    <div className="mb-3 px-3 py-1 rounded-full bg-emerald-700 text-white font-extrabold text-[10px] tracking-wider uppercase flex items-center justify-between shadow-sm animate-pulse">
+                      <span className="flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
+                        <span>AI Optimal 4-Way Match Selection</span>
+                      </span>
+                      <span>{pool.matchScore}% Match Score</span>
+                    </div>
+                  )}
                   <div>
                     {/* Top Header: Departure & Match Score */}
                     <div className="flex items-center justify-between pb-4 border-b border-[#F0ECE1]">
@@ -1322,6 +1407,120 @@ export default function ExploreDashboard({ onBackToStory }) {
               >
                 <Check className="w-4 h-4" />
                 <span>I Have Paid ₹{activeChatPool.farePerPerson} (Mark Settled)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 9. AI SMART MATCH OPTIMAL RESULT MODAL */}
+      {showAiMatchModal && matchedPoolData && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn">
+          <div className="bg-white rounded-3xl p-6 sm:p-7 max-w-lg w-full border border-[#E7E4DC] shadow-2xl relative">
+            <button
+              onClick={() => setShowAiMatchModal(false)}
+              className="absolute top-5 right-5 text-zinc-400 hover:text-black p-1 rounded-full hover:bg-zinc-100 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Header Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-extrabold uppercase tracking-wider mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-600 animate-spin" />
+              <span>AI 4-Way Match Engine Result</span>
+            </div>
+
+            <h3 className="font-extrabold text-xl text-[#1B1E1D] tracking-tight">
+              Optimal Co-Rider Pool Identified
+            </h3>
+            <p className="text-xs text-[#525955] mt-1">
+              Matched based on corridor route synergy, synced departure window, luggage boot fit, and verified institutional safety score.
+            </p>
+
+            {/* Match Hero Card */}
+            <div className="my-5 p-4 rounded-2xl bg-[#FAF8F5] border border-[#E7E4DC]">
+              <div className="flex items-center justify-between pb-3 border-b border-[#E7E4DC]">
+                <div className="flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-full ${matchedPoolData.poster.avatarBg} text-white flex items-center justify-center font-bold text-sm shadow-sm`}>
+                    {matchedPoolData.poster.initials}
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm text-[#1B1E1D] flex items-center gap-1.5">
+                      <span>{matchedPoolData.poster.name}</span>
+                      <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                    </div>
+                    <div className="text-[11px] text-[#525955] flex items-center gap-2">
+                      <span className="font-semibold text-amber-600">{matchedPoolData.poster.rating}</span>
+                      <span>•</span>
+                      <span>{matchedPoolData.isGirlsOnly ? '🌸 Girls-Only Circle' : 'Campus Co-Rider'}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-right">
+                  <div className="text-2xl font-black text-emerald-700">{matchedPoolData.matchScore}%</div>
+                  <div className="text-[10px] font-bold text-[#8C938F] uppercase">Affinity Score</div>
+                </div>
+              </div>
+
+              {/* Route & Departure */}
+              <div className="py-3 border-b border-[#E7E4DC] flex items-center justify-between text-xs font-bold text-[#1B1E1D]">
+                <span className="flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-emerald-600" />
+                  <span>Departs: {matchedPoolData.departureTime}</span>
+                </span>
+                <span className="text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 text-[11px]">
+                  {matchedPoolData.seatsTotal - matchedPoolData.seatsOccupied} Seats Open
+                </span>
+              </div>
+
+              {/* 4 Factor Matrix Grid */}
+              <div className="grid grid-cols-2 gap-2 mt-3 text-xs">
+                <div className="p-2.5 rounded-xl bg-white border border-[#E7E4DC]">
+                  <div className="text-[10px] font-bold text-[#8C938F] uppercase">Route Overlap</div>
+                  <div className="font-bold text-emerald-800 mt-0.5">96% Corridor Synergy</div>
+                  <div className="text-[10px] text-zinc-500">Zero-detour highway drop</div>
+                </div>
+                <div className="p-2.5 rounded-xl bg-white border border-[#E7E4DC]">
+                  <div className="text-[10px] font-bold text-[#8C938F] uppercase">Boot Luggage Space</div>
+                  <div className="font-bold text-emerald-800 mt-0.5">Verified Capacity</div>
+                  <div className="text-[10px] text-zinc-500">{matchedPoolData.bootSpace}</div>
+                </div>
+                <div className="p-2.5 rounded-xl bg-white border border-[#E7E4DC]">
+                  <div className="text-[10px] font-bold text-[#8C938F] uppercase">Solo Cab Fare</div>
+                  <div className="font-bold text-zinc-400 line-through mt-0.5">₹{matchedPoolData.soloCab}</div>
+                  <div className="text-[10px] text-zinc-500">Uber Go standard solo</div>
+                </div>
+                <div className="p-2.5 rounded-xl bg-white border border-[#E7E4DC]">
+                  <div className="text-[10px] font-bold text-[#8C938F] uppercase">FareShare 4-Way Split</div>
+                  <div className="font-extrabold text-emerald-700 text-sm mt-0.5">₹{matchedPoolData.farePerPerson} <span className="text-[10px] font-normal text-emerald-800 font-sans">(-{matchedPoolData.savingsPercent}%)</span></div>
+                  <div className="text-[10px] text-emerald-600 font-semibold">Save ₹{matchedPoolData.soloCab - matchedPoolData.farePerPerson}</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="space-y-2">
+              <button
+                onClick={() => {
+                  setShowAiMatchModal(false);
+                  handleRequestPool(matchedPoolData);
+                }}
+                className="w-full py-3 px-5 rounded-2xl bg-[#1A3D34] hover:bg-[#132E27] active:scale-[0.99] text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all shadow-md"
+              >
+                <Sparkles className="w-4 h-4 text-emerald-300" />
+                <span>Request Seat in this Matched Pool (₹{matchedPoolData.farePerPerson})</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setShowAiMatchModal(false);
+                  const card = document.getElementById(`pool-${matchedPoolData.id}`);
+                  if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }}
+                className="w-full py-2.5 px-4 rounded-2xl bg-[#FAF8F5] hover:bg-[#F4F1EA] text-[#525955] text-xs font-bold border border-[#E7E4DC] transition-colors"
+              >
+                View Highlighted Card in Feed ↓
               </button>
             </div>
           </div>
