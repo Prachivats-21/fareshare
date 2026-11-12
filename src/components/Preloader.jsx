@@ -73,7 +73,7 @@ export default function Preloader({ onComplete }) {
           </div>
           <div className="md:col-span-3 text-right text-xs sm:text-sm font-mono text-zinc-400">
             Delhi-NCR, IN<br />
-            <span className="text-emerald-400">@nst-ru.edu.in</span>
+            <span className="text-emerald-400">@campus.edu</span>
           </div>
         </div>
 

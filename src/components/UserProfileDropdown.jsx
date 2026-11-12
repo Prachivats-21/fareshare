@@ -12,7 +12,7 @@ export default function UserProfileDropdown() {
   // User state
   const [userProfile, setUserProfile] = useState({
     name: "Prachi Vats",
-    email: "prachi.vats@nst-ru.edu.in",
+    email: "prachi.vats@campus.edu",
     hostel: "Hostel 3 (Girls)",
     room: "Room 312",
     phone: "+91 98765 43210",

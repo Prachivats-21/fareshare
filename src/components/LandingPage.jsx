@@ -179,7 +179,7 @@ export default function LandingPage({ onLaunchApp }) {
                     interval={2400}
                   />
                 </span>{' '}
-                and our AI matches you with verified <span className="font-semibold text-emerald-800">@nst-ru.edu.in</span> campus peers in seconds.
+                and our AI matches you with verified <span className="font-semibold text-emerald-800">.edu Student</span> campus peers in seconds.
               </p>
             </div>
 
@@ -425,7 +425,7 @@ export default function LandingPage({ onLaunchApp }) {
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✓</span>
-                <span><strong>Girls-Only Safe Circles:</strong> One-tap verified female ride pooling with @nst-ru.edu.in authentication.</span>
+                <span><strong>Girls-Only Safe Circles:</strong> One-tap verified female ride pooling with campus .edu ID authentication.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✓</span>
@@ -726,7 +726,7 @@ export default function LandingPage({ onLaunchApp }) {
                 ⚡ Conversational Omnibox
               </span>
               <span className="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-semibold text-emerald-200 border border-white/10">
-                🛡️ Verified @nst-ru.edu.in
+                🛡️ Verified .edu College ID
               </span>
               <span className="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-semibold text-pink-200 border border-pink-400/20">
                 🌸 Girls-Only Safe Filter
@@ -802,7 +802,7 @@ export default function LandingPage({ onLaunchApp }) {
             <h3 className="text-xl font-bold text-[#1B1E1D] mb-4">FareShare Campus Ride Guidelines</h3>
             <div className="space-y-4 text-xs text-[#525955] leading-relaxed">
               <p>
-                <strong>1. Verified Students Only:</strong> Every rider and driver pool poster must possess a verified @nst-ru.edu.in email ID and valid student campus credentials.
+                <strong>1. Verified Students Only:</strong> Every rider and driver pool poster must possess a verified university .edu email ID and valid student campus credentials.
               </p>
               <p>
                 <strong>2. Punctuality:</strong> Be at the designated campus pickup gate at least 5 minutes prior to departure.

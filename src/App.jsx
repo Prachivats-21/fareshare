@@ -4,7 +4,12 @@ import LandingPage from './components/LandingPage';
 import ExploreDashboard from './components/ExploreDashboard';
 
 export default function App() {
-  const [showPreloader, setShowPreloader] = useState(true);
+  const [showPreloader, setShowPreloader] = useState(() => {
+    if (typeof window !== 'undefined' && window.location.search.includes('skip')) {
+      return false;
+    }
+    return true;
+  });
   const [currentView, setCurrentView] = useState('story'); // 'story' | 'explore'
 
   // Disable browser automatic scroll restoration so it never forces previous scroll offset
