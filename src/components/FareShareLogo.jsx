@@ -19,17 +19,7 @@ export default function FareShareLogo({ className = "w-9 h-9", animated = true }
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-full drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
       >
-        {/* Clean Soft Warm Badge Container */}
-        <rect width="64" height="64" rx="16" fill="#FFFDF9" />
-        <rect
-          x="0.75"
-          y="0.75"
-          width="62.5"
-          height="62.5"
-          rx="15.25"
-          stroke="#EAE4D7"
-          strokeWidth="1.2"
-        />
+        {/* Seamless Transparent Background (No bounding box or border) */}
 
         {/* Soft Lavender / Lilac Ground Shadows (Exact reference match) */}
         <ellipse cx="37" cy="49.5" rx="15" ry="2.4" fill="#DDD6FE" fillOpacity="0.8" />
