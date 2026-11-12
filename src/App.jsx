@@ -10,7 +10,12 @@ export default function App() {
     }
     return true;
   });
-  const [currentView, setCurrentView] = useState('story'); // 'story' | 'explore'
+  const [currentView, setCurrentView] = useState(() => {
+    if (typeof window !== 'undefined' && window.location.search.includes('view=explore')) {
+      return 'explore';
+    }
+    return 'story';
+  }); // 'story' | 'explore'
 
   // Disable browser automatic scroll restoration so it never forces previous scroll offset
   useEffect(() => {

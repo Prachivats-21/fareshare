@@ -3,7 +3,7 @@ import {
   Sparkles, ShieldCheck, ArrowLeft, Users, Clock, Search, 
   MapPin, Luggage, Star, CheckCircle, Send, X, ArrowUpRight,
   AlertCircle, MessageCircle, Wallet, Info, Check, Filter,
-  Mic, MicOff, Languages, Volume2, Car, ExternalLink
+  Mic, MicOff, Languages, Volume2, Car, ExternalLink, QrCode, Smartphone
 } from 'lucide-react';
 import { TEAM_MEMBERS, CORRIDORS, INITIAL_POOLS } from '../data/fareshareData';
 import { playPop, playSuccess, playToggle } from '../utils/sound';
@@ -123,21 +123,15 @@ export default function ExploreDashboard({ onBackToStory }) {
 
     if (!SpeechRecognition) {
       // Browser fallback: simulate voice input with realistic bilingual queries
-      const sampleQueries = [
-        "Kal shaam 4 baje IGI Airport T3 jaana hai 1 trolley ke sath",
-        "Heading to New Delhi Railway Station this Friday around 4 PM",
-        "Sector 18 Cyber City mall chalna hai Sunday afternoon",
-        "Friday shaam ko NDLS train pakadni hai"
-      ];
-      const randomQuery = sampleQueries[Math.floor(Math.random() * sampleQueries.length)];
+      const simulatedQuery = "Kal shaam 4 baje IGI Airport T3 jaana hai 1 trolley ke sath";
       setIsListening(true);
       setVoiceNotice('Listening... बोलिए (Recording in Hindi/English)');
       setTimeout(() => {
-        setSearchQuery(randomQuery);
+        setSearchQuery(simulatedQuery);
         setIsListening(false);
         setVoiceNotice('');
         playSuccess();
-      }, 1200);
+      }, 1100);
       return;
     }
 
@@ -216,6 +210,7 @@ export default function ExploreDashboard({ onBackToStory }) {
   ]);
   const [newChatText, setNewChatText] = useState('');
   const [upiSettled, setUpiSettled] = useState(false);
+  const [showUpiModal, setShowUpiModal] = useState(false);
 
   // New Pool Modal State
   const [showPostPoolModal, setShowPostPoolModal] = useState(false);
@@ -1106,13 +1101,17 @@ export default function ExploreDashboard({ onBackToStory }) {
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                  <a
-                    href={`upi://pay?pa=prachi@okaxis&pn=Prachi%20Vats&am=${activeChatPool.farePerPerson}&cu=INR&tn=FareShare%20Pool%20${activeChatPool.id}`}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      playPop();
+                      setShowUpiModal(true);
+                    }}
                     className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white transition-all shadow-sm text-center"
                   >
-                    <span>Open UPI App</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </a>
+                    <QrCode className="w-3.5 h-3.5" />
+                    <span>Open UPI / QR</span>
+                  </button>
                   <button
                     onClick={() => {
                       playSuccess();
@@ -1222,6 +1221,109 @@ export default function ExploreDashboard({ onBackToStory }) {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* 8. UNIVERSAL UPI PAYMENT MODAL */}
+      {showUpiModal && activeChatPool && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn">
+          <div className="bg-white rounded-3xl p-6 sm:p-7 max-w-sm w-full border border-[#E7E4DC] shadow-2xl relative text-center">
+            <button
+              onClick={() => setShowUpiModal(false)}
+              className="absolute top-5 right-5 text-zinc-400 hover:text-black p-1 rounded-full hover:bg-zinc-100 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center mx-auto mb-3 shadow-inner">
+              <QrCode className="w-6 h-6" />
+            </div>
+
+            <h3 className="font-extrabold text-lg text-[#1B1E1D]">NPCI Universal UPI Split</h3>
+            <p className="text-xs text-[#6B726F] mt-0.5">Pay direct split to ride host with 0% platform fee</p>
+
+            <div className="my-5 p-4 bg-[#FAF8F5] rounded-2xl border border-[#E7E4DC] flex flex-col items-center">
+              {/* Clean SVG QR Code Representation */}
+              <div className="w-36 h-36 bg-white p-2.5 rounded-xl border border-zinc-200 shadow-sm flex items-center justify-center relative">
+                <svg viewBox="0 0 100 100" className="w-full h-full">
+                  {/* Outer corner markers */}
+                  <rect x="5" y="5" width="26" height="26" rx="4" fill="#1A3D34" />
+                  <rect x="9" y="9" width="18" height="18" rx="2" fill="#FFFFFF" />
+                  <rect x="13" y="13" width="10" height="10" fill="#1A3D34" />
+
+                  <rect x="69" y="5" width="26" height="26" rx="4" fill="#1A3D34" />
+                  <rect x="73" y="9" width="18" height="18" rx="2" fill="#FFFFFF" />
+                  <rect x="77" y="13" width="10" height="10" fill="#1A3D34" />
+
+                  <rect x="5" y="69" width="26" height="26" rx="4" fill="#1A3D34" />
+                  <rect x="9" y="73" width="18" height="18" rx="2" fill="#FFFFFF" />
+                  <rect x="13" y="77" width="10" height="10" fill="#1A3D34" />
+
+                  {/* QR Data Pattern */}
+                  <rect x="36" y="8" width="6" height="6" fill="#1A3D34" />
+                  <rect x="46" y="8" width="8" height="6" fill="#1A3D34" />
+                  <rect x="58" y="8" width="6" height="6" fill="#1A3D34" />
+
+                  <rect x="36" y="18" width="10" height="6" fill="#1A3D34" />
+                  <rect x="50" y="18" width="6" height="6" fill="#1A3D34" />
+                  <rect x="60" y="18" width="5" height="6" fill="#1A3D34" />
+
+                  <rect x="8" y="36" width="6" height="6" fill="#1A3D34" />
+                  <rect x="18" y="36" width="6" height="6" fill="#1A3D34" />
+                  <rect x="28" y="36" width="6" height="6" fill="#1A3D34" />
+
+                  {/* Center Brand Badge */}
+                  <rect x="38" y="38" width="24" height="24" rx="6" fill="#1A3D34" />
+                  <text x="50" y="54" fill="#FFFFFF" fontSize="11" fontWeight="bold" textAnchor="middle">UPI</text>
+
+                  <rect x="66" y="36" width="8" height="6" fill="#1A3D34" />
+                  <rect x="78" y="36" width="6" height="6" fill="#1A3D34" />
+                  <rect x="88" y="36" width="6" height="6" fill="#1A3D34" />
+
+                  <rect x="36" y="66" width="6" height="8" fill="#1A3D34" />
+                  <rect x="46" y="66" width="12" height="6" fill="#1A3D34" />
+                  <rect x="62" y="66" width="6" height="10" fill="#1A3D34" />
+
+                  <rect x="36" y="78" width="8" height="8" fill="#1A3D34" />
+                  <rect x="48" y="78" width="6" height="8" fill="#1A3D34" />
+                  <rect x="70" y="78" width="12" height="6" fill="#1A3D34" />
+                  <rect x="86" y="78" width="6" height="6" fill="#1A3D34" />
+                </svg>
+              </div>
+
+              <div className="mt-3 text-center">
+                <div className="text-2xl font-black text-[#1A3D34]">₹{activeChatPool.farePerPerson}.00</div>
+                <div className="text-[11px] font-mono text-zinc-600 mt-0.5">VPA: prachi@okaxis</div>
+                <div className="text-[10px] text-zinc-400">Ref: #{activeChatPool.id} • Prachi Vats</div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-center gap-2 mb-4 text-[10px] font-bold text-zinc-500 uppercase tracking-wider">
+              <span>Google Pay</span> • <span>PhonePe</span> • <span>Paytm</span> • <span>BHIM</span>
+            </div>
+
+            <div className="space-y-2">
+              <a
+                href={`upi://pay?pa=prachi@okaxis&pn=Prachi%20Vats&am=${activeChatPool.farePerPerson}&cu=INR&tn=FareShare%20Pool%20${activeChatPool.id}`}
+                className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-[#1A3D34] hover:bg-[#132E27] text-white flex items-center justify-center gap-2 transition-all shadow-sm"
+              >
+                <Smartphone className="w-4 h-4 text-emerald-400" />
+                <span>Trigger Mobile UPI Intent</span>
+              </a>
+
+              <button
+                onClick={() => {
+                  playSuccess();
+                  setUpiSettled(true);
+                  setShowUpiModal(false);
+                }}
+                className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center gap-2 transition-all shadow-sm"
+              >
+                <Check className="w-4 h-4" />
+                <span>I Have Paid ₹{activeChatPool.farePerPerson} (Mark Settled)</span>
+              </button>
+            </div>
           </div>
         </div>
       )}
