@@ -1,0 +1,33 @@
+name: Replit 24/7 Keep-Alive & Cloud Health Monitor
+
+on:
+  schedule:
+    # Runs every 5 minutes in GitHub Cloud (completely independent of user laptop)
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    name: Ping Replit Production App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping FareShare on Replit
+        run: |
+          echo "🌐 Cloud Pinger initiating keep-alive heartbeat..."
+          URL="https://fareshare--pvats2112.replit.app"
+          STATUS=$(curl -s -L -o /dev/null -w "%{http_code}" --max-time 30 "$URL")
+          echo "HTTP Response Status from Replit: $STATUS"
+          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 400 ]; then
+            echo "✅ FareShare Replit instance is active, awake, and healthy!"
+          else
+            echo "⚠️ Replit returned non-success code $STATUS. Retrying in 5s..."
+            sleep 5
+            RETRY_STATUS=$(curl -s -L -o /dev/null -w "%{http_code}" --max-time 30 "$URL")
+            echo "Retry Status: $RETRY_STATUS"
+            if [ "$RETRY_STATUS" -ge 200 ] && [ "$RETRY_STATUS" -lt 400 ]; then
+              echo "✅ FareShare Replit instance woke up successfully on retry!"
+            else
+              echo "❌ Replit container unresponsive. Alerting."
+              exit 1
+            fi
+          fi
