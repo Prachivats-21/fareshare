@@ -8,6 +8,7 @@
 <br/>
 
 [![Live on Replit](https://img.shields.io/badge/Live%20App-Replit-F26207?style=for-the-badge&logo=replit&logoColor=white)](https://fareshare--pvats2112.replit.app)
+[![Live on Vercel](https://img.shields.io/badge/Production-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://fareshare-one.vercel.app)
 [![GitHub Pages](https://img.shields.io/badge/Mirror%20Demo-GitHub%20Pages-1A3D34?style=for-the-badge&logo=github)](https://prachivats-21.github.io/fareshare/)
 [![React 19](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Vite 6](https://img.shields.io/badge/Vite-6.2-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
@@ -16,8 +17,9 @@
 [![coNStruCT 2.0](https://img.shields.io/badge/coNStruCT%202.0-Product%20%C3%97%20AI%20Hackathon-267256?style=for-the-badge)](https://fareshare--pvats2112.replit.app)
 
 <p align="center">
-  <b>🚀 Live Replit App:</b> <a href="https://fareshare--pvats2112.replit.app">https://fareshare--pvats2112.replit.app</a> •
-  <b>⚡ Mirror Demo:</b> <a href="https://prachivats-21.github.io/fareshare/">GitHub Pages</a>
+  <b>🚀 Live Replit:</b> <a href="https://fareshare--pvats2112.replit.app">fareshare--pvats2112.replit.app</a> •
+  <b>⚡ Live Vercel:</b> <a href="https://fareshare-one.vercel.app">fareshare-one.vercel.app</a> •
+  <b>🌐 Mirror:</b> <a href="https://prachivats-21.github.io/fareshare/">GitHub Pages</a>
 </p>
 
 <p align="center">
